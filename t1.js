@@ -27,10 +27,7 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards'])
     },
     { word: 'Beemar4',
       meaning: 'BMW'
-    }/*,
-    { image: 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSJIt3D4sRY9Prsd-1EdaTyMNeTzOrhP9sV46PW_rMabw2rU1B3' },
-    { image: 'https://pbs.twimg.com/profile_images/598205061232103424/3j5HUXMY.png' },
-    { image: 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSJIt3D4sRY9Prsd-1EdaTyMNeTzOrhP9sV46PW_rMabw2rU1B3'}*/
+    }
   ];
 
   $scope.cards = Array.prototype.slice.call(cardTypes, 0);
