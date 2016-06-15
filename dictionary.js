@@ -13,24 +13,25 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards'])
         }
     })
 
-    .controller('CardsCtrl', function($scope, TDCardDelegate, CardService) {
+    .controller('CardsCtrl', function($scope, TDCardDelegate) {
         console.log('CARDS CTRL');
-        CardService.getWord().success(function(data){
-            console.log(data.word)
-        });
+       
 
         var cardTypes = [
             { word: 'Beemar',
-                meaning: 'BMW'
+              definition: 'BMW car ngbjgkn bjkfgksjdf hbjhfgbkjsn jhdfkjgsdf  jdfghsdf jhgjhsdfgjk',
+			  example: 'I have BMW car',			
             },
             { word: 'Beemar2',
-                meaning: 'BMW'
+                definition: 'BMW car ngbjgkn bjkfgksjdf hbjhfgbkjsn jhdfkjgsdf  jdfghsdf jhgjhsdfgjk',
+				example: 'I have BMW car',		
             },
             { word: 'Beemar3',
-                meaning: 'BMW'
+                definition: 'BMW car ngbjgkn bjkfgksjdf hbjhfgbkjsn jhdfkjgsdf  jdfghsdf jhgjhsdfgjk',				
             },
             { word: 'Beemar4',
-                meaning: 'BMW'
+                definition: 'BMW car ngbjgkn bjkfgksjdf hbjhfgbkjsn jhdfkjgsdf  jdfghsdf jhgjhsdfgjk',
+				example: 'I have BMW car',				
             }
         ];
 
