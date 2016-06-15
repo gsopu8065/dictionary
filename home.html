@@ -4,7 +4,7 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     
     <link rel="stylesheet" href="https://code.ionicframework.com/contrib/ionic-contrib-tinder-cards/ionic.tdcards.css">
-    <link rel="stylesheet" href="dictionary.css">
+    <link rel="stylesheet" href="t1.css">
         
     <link href="https://code.ionicframework.com/1.0.0-beta.14/css/ionic.css" rel="stylesheet">
     
@@ -12,7 +12,7 @@
     
     <script src="https://code.ionicframework.com/1.0.0-beta.14/js/ionic.bundle.js"></script>
     <script src="https://code.ionicframework.com/contrib/ionic-contrib-tinder-cards/ionic.tdcards.js"></script>
-    <script src="dictionary.js"></script>
+    <script src="t1.js"></script>
   </head>
 <body ng-app="starter" no-scroll>
     <ion-pane ng-controller="CardsCtrl">
@@ -25,9 +25,11 @@
           <div class="image" ng-controller="CardCtrl">                                                           
             <div class="no-text">NOPE</div>
             <div class="content">
-              {{card.word}} 
-            </div>
-            <!-- <img ng-src="{{card.image}}"> -->
+              <div class="word">{{card.word}} </div>
+			  <div class="definition">{{card.definition}} </div>
+			  <div class="example">{{card.example}} </div>
+			  <div class="source">By Urban Dictionary </div>
+            </div>          
             <div class="yes-text">LIKE</div>
           </div>
         </td-card>
