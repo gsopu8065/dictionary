@@ -68,6 +68,9 @@ td-card .content .source{
     margin-right: 15px;
 }
 
+.title{
+    background-color: #9a9aef;
+}
 
 .yes-text {
   position: absolute;

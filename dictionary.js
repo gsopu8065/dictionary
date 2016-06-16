@@ -13,39 +13,45 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards'])
         }
     })
 
-    .controller('CardsCtrl', function($scope, TDCardDelegate) {
+    .controller('CardsCtrl', function($scope, TDCardDelegate, CardService) {
         console.log('CARDS CTRL');
-       
 
-        var cardTypes = [
-            { word: 'Beemar',
-              definition: 'BMW car ngbjgkn bjkfgksjdf hbjhfgbkjsn jhdfkjgsdf  jdfghsdf jhgjhsdfgjk',
-			  example: 'I have BMW car',			
-            },
-            { word: 'Beemar2',
-                definition: 'BMW car ngbjgkn bjkfgksjdf hbjhfgbkjsn jhdfkjgsdf  jdfghsdf jhgjhsdfgjk',
-				example: 'I have BMW car',		
-            },
-            { word: 'Beemar3',
-                definition: 'BMW car ngbjgkn bjkfgksjdf hbjhfgbkjsn jhdfkjgsdf  jdfghsdf jhgjhsdfgjk',				
-            },
-            { word: 'Beemar4',
-                definition: 'BMW car ngbjgkn bjkfgksjdf hbjhfgbkjsn jhdfkjgsdf  jdfghsdf jhgjhsdfgjk',
-				example: 'I have BMW car',				
+        $scope.cards = []
+        var init = function(){
+            for(var i=0;i<=3;i++)
+            {
+                CardService.getWord().success(function (data) {
+                    console.log(data.word)
+                    $scope.cards.push(data)
+                });
             }
-        ];
+        }
 
-        $scope.cards = Array.prototype.slice.call(cardTypes, 0);
+        init()
 
         $scope.cardDestroyed = function(index) {
             $scope.cards.splice(index, 1);
         };
 
         $scope.addCard = function() {
-            var newCard = cardTypes[Math.floor(Math.random() * cardTypes.length)];
-            newCard.id = Math.random();
-            $scope.cards.push(angular.extend({}, newCard));
+            CardService.getWord().success(function (data) {
+                $scope.cards.unshift(data);
+            });
         }
+
+        $scope.cardSwipedLeft = function(index) {
+            console.log('LEFT SWIPE');
+            //$scope.addCard();
+        };
+        $scope.cardSwipedRight = function(index) {
+            console.log('RIGHT SWIPE');
+            //$scope.addCard();
+        };
+
+        $scope.cardDestroyed = function(index) {
+            console.log('cardDestroyed');
+            $scope.addCard();
+        };
     })
 
     .controller('CardCtrl', function($scope, TDCardDelegate) {
@@ -61,7 +67,6 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards'])
 
     .factory('CardService', ["$http", function($http) {
         var CardService = {};
-
         CardService.getWord = function(){
             return $http({
                 method: 'get',
