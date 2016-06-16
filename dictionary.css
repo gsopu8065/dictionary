@@ -28,12 +28,13 @@ td-card .content {
 }
 
 td-card .content .word{
-   color: #105FC3;
-    font-size: 30px;
+    color: #105FC3;
+    font-size: x-large;
     text-align: center;
     margin-top: 20px;
     font-family: initial;
     font-weight: bolder;
+    line-height: initial;
 }
 
 td-card .content .definition{
