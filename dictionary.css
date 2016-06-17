@@ -1,33 +1,33 @@
 td-cards {
-  display: block;
+    display: block;
 }
 
 td-card {
-  position: absolute;
-  left: 50%;
-  margin-top: 80px;
-  margin-bottom: 40px;
-  margin-left: -150px;
-  width: 300px;
-  height: 50%;
+    position: absolute;
+    margin-top: 54px;
+    margin-right: 10%;
+    margin-left: 10%;
+    width: 80%;
+    height: 75%;
+    border: 1px solid #999;
+    box-shadow: 1px 9px 14px rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    background-color: #f8f8f8;
 
-  border: 1px solid #999;
-  box-shadow: 0px 1px 3px rgba(0,0,0,0.2);
-  border-radius: 6px;
-  background-color: #f8f8f8;
- 
 }
 
 td-card .image {
-  position: relative;
+    position: relative;
 }
 
 td-card .content {
-  max-width: 100%;
-  border-radius: 6px;
+    max-width: 100%;
+    border-radius: 6px;
+    position: relative;
+    height: 90%;
 }
 
-td-card .content .word{
+td-card .content .word {
     color: #105FC3;
     font-size: x-large;
     text-align: center;
@@ -37,61 +37,67 @@ td-card .content .word{
     line-height: initial;
 }
 
-td-card .content .definition{
-  color: black;
-    font-size: 18px;
+td-card .content .definition {
+    color: black;
+    font-size: 16px;
     text-align: left;
-    margin-top: 20px;
+    margin-top: 10px;
     font-family: initial;
     margin-left: 15px;
     word-break: break-word;
     margin-right: 15px;
+    overflow: scroll;
+    height: 85%;
 }
 
-td-card .content .example{
-  color: black;
-    font-size: 18px;
-    text-align: left;
-    margin-top: 20px;
-    font-family: initial;
-    margin-left: 15px;
-    word-break: break-word;
-    margin-right: 15px;
-}
-td-card .content .source{
-  color: black;
-    font-size: 18px;
-    text-align: left;
-    margin-top: 20px;
-    font-family: initial;
-    margin-left: 15px;
-    word-break: break-word;
-    margin-right: 15px;
+td-card .content .definition .space{
+    height: 15px;
 }
 
-.title{
+td-card .content .definition .example{
+    margin-bottom: 6px;
+    color: #105FC3;
+    font-weight: bolder;
+}
+
+td-card .content .source {
+    color: black;
+    font-size: 14px;
+    font-family: initial;
+    margin-left: 15px;
+    position: absolute;
+    bottom: 0px;
+}
+
+.sourceLabel{
+    color: #105FC3;
+    font-weight: 900;
+}
+
+.title {
     background-color: #9a9aef;
 }
 
 .yes-text {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  font-size: 30px;
-  color: rgb(111, 250, 111);
-  opacity: 0;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 30px;
+    color: rgb(111, 250, 111);
+    opacity: 0;
 }
+
 .no-text {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 30px;
-  color: rgb(255, 115, 115);
-  opacity: 0;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 30px;
+    color: rgb(255, 115, 115);
+    opacity: 0;
 }
 
 .fade {
-  -webkit-transition: 0.2s opacity linear;
-  transition: 0.2s opacity linear;
-  opacity: 0;
+    -webkit-transition: 0.2s opacity linear;
+    transition: 0.2s opacity linear;
+    opacity: 0;
 }

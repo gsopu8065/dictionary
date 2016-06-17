@@ -26,9 +26,13 @@
             <div class="no-text">NOPE</div>
             <div class="content">
               <div class="word">{{card.word}} </div>
-			  <div class="definition">{{card.definition}} </div>
-			  <div class="example">{{card.example}} </div>
-			  <div class="source">By Urban Dictionary </div>
+			  <div class="definition">
+                {{card.definition}}
+                <div class="space"></div>
+                <div class="example">Example:</div>
+                {{card.example}}
+              </div>
+			  <div class="source"> <span class="sourceLabel">Source: </span> {{card.source}} </div>
             </div>          
             <div class="yes-text">LIKE</div>
           </div>
