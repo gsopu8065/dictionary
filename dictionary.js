@@ -25,10 +25,12 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards'])
         }
 
         var init = function(){
-            for(var i=0;i<=3;i++)
-            {
+
                 $scope.addCard();
-            }
+            $scope.addCard();
+            $scope.addCard();
+
+
         }
 
         init()
