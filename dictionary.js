@@ -18,7 +18,7 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards'])
 
         $scope.cards = []
         var init = function(){
-            for(var i=0;i<=3;i++)
+            for(var i=0;i<=1;i++)
             {
                 CardService.getWord().success(function (data) {
                     console.log(data.word)
