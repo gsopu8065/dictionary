@@ -27,9 +27,6 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards'])
         var init = function(){
 
                 $scope.addCard();
-            $scope.addCard();
-            $scope.addCard();
-
 
         }
 
