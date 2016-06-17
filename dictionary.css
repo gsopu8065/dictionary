@@ -5,9 +5,9 @@ td-cards {
 td-card {
     position: absolute;
     margin-top: 54px;
-    margin-right: 10%;
-    margin-left: 10%;
-    width: 80%;
+    margin-right: 5%;
+    margin-left: 5%;
+    width: 90%;
     height: 75%;
     border: 1px solid #999;
     box-shadow: 1px 9px 14px rgba(0, 0, 0, 0.2);
