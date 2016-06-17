@@ -16,18 +16,10 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards'])
     .controller('CardsCtrl', function($scope, TDCardDelegate, CardService) {
         console.log('CARDS CTRL');
 
-        $scope.cards = []
-        var init = function(){
-            for(var i=0;i<=3;i++)
-            {
-                CardService.getWord().success(function (data) {
-                    console.log(data.word)
-                    $scope.cards.push(data)
-                });
-            }
-        }
-
-        init()
+        CardService.getWords().success(function (data) {
+            console.log(data)
+            $scope.cards = data
+        });
 
         $scope.cardDestroyed = function(index) {
             $scope.cards.splice(index, 1);
@@ -53,7 +45,6 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards'])
             $scope.addCard();
         };
     })
-
     .controller('CardCtrl', function($scope, TDCardDelegate) {
         $scope.cardSwipedLeft = function(index) {
             console.log('LEFT SWIPE');
@@ -73,6 +64,11 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards'])
                 url: 'https://dictionaryweb.herokuapp.com/random',
             });
         };
-
+        CardService.getWords = function(){
+            return $http({
+                method: 'get',
+                url: 'https://dictionaryweb.herokuapp.com/randomWords',
+            });
+        };
         return CardService;
     }]);
