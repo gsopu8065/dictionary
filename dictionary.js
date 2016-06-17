@@ -18,19 +18,13 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards'])
 
         $scope.cards = []
         var init = function(){
+            for(var i=0;i<=3;i++)
+            {
                 CardService.getWord().success(function (data) {
                     console.log(data.word)
                     $scope.cards.push(data)
-                    CardService.getWord().success(function (data) {
-                        console.log(data.word)
-                        $scope.cards.push(data)
-                        CardService.getWord().success(function (data) {
-                            console.log(data.word)
-                            $scope.cards.push(data)
-                        });
-                    });
                 });
-
+            }
         }
 
         init()
