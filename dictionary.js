@@ -17,17 +17,14 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards'])
         console.log('CARDS CTRL');
 
         $scope.cards = []
-
-        $scope.addCard = function() {
-            CardService.getWord().success(function (data) {
-                $scope.cards.unshift(data);
-            });
-        }
-
         var init = function(){
-
-                $scope.addCard();
-
+            for(var i=0;i<=3;i++)
+            {
+                CardService.getWord().success(function (data) {
+                    console.log(data.word)
+                    $scope.cards.push(data)
+                });
+            }
         }
 
         init()
@@ -36,6 +33,11 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards'])
             $scope.cards.splice(index, 1);
         };
 
+        $scope.addCard = function() {
+            CardService.getWord().success(function (data) {
+                $scope.cards.unshift(data);
+            });
+        }
 
         $scope.cardSwipedLeft = function(index) {
             console.log('LEFT SWIPE');
