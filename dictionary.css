@@ -76,10 +76,6 @@ td-card .content .definition .example{
     font-weight: 900;
 }
 
-.title {
-    background-color: #9a9aef;
-}
-
 .yes-text {
     position: absolute;
     top: 10px;
@@ -106,4 +102,14 @@ td-card .content .definition .example{
 
 .w3-teal{
     height: 45px;
+    text-align: center;
+}
+
+.w3-opennav{
+    float: left;
+}
+
+.title{
+    font-size: 25px;
+    font-family: initial;
 }
