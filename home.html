@@ -1,43 +1,68 @@
+<!DOCTYPE html>
 <html>
-  <head>
-       <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    
-    <link rel="stylesheet" href="https://code.ionicframework.com/contrib/ionic-contrib-tinder-cards/ionic.tdcards.css">
-    <link rel="stylesheet" href="dictionary.css">
-        
-    <link href="https://code.ionicframework.com/1.0.0-beta.14/css/ionic.css" rel="stylesheet">
-    
-    <script src="https://code.ionicframework.com/collide/0.0.4/collide.js"></script>
-    
-    <script src="https://code.ionicframework.com/1.0.0-beta.14/js/ionic.bundle.js"></script>
-    <script src="https://code.ionicframework.com/contrib/ionic-contrib-tinder-cards/ionic.tdcards.js"></script>
-    <script src="dictionary.js"></script>
-  </head>
-<body ng-app="starter" no-scroll>
-    <ion-pane ng-controller="CardsCtrl">
-      <ion-header-bar class="bar-default">
-        <h1 class="title">WORDS SWIPE</h1>
-      </ion-header-bar>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
 
-      <td-cards>
-        <td-card ng-repeat="card in cards" on-destroy="cardDestroyed($index)" on-swipe-left="cardSwipedLeft($index)" on-swipe-right="cardSwipedRight($index)" on-partial-swipe="cardPartialSwipe(amt)" class="card-{{$index}}">
-          <div class="image">
-            <div class="no-text">NOPE</div>
-            <div class="content">
-              <div class="word">{{card.word}} </div>
-			  <div class="definition">
-                {{card.definition}}
-                <div class="space"></div>
-                <div class="example">Example:</div>
-                {{card.example}}
-              </div>
-			  <div class="source"> <span class="sourceLabel">Source: </span> {{card.source}} </div>
-            </div>          
-            <div class="yes-text">LIKE</div>
+  <link rel="stylesheet" href="https://code.ionicframework.com/contrib/ionic-contrib-tinder-cards/ionic.tdcards.css">
+  <link rel="stylesheet" href="dictionary.css">
+
+  <link href="https://code.ionicframework.com/1.0.0-beta.14/css/ionic.css" rel="stylesheet">
+
+  <script src="https://code.ionicframework.com/collide/0.0.4/collide.js"></script>
+
+  <script src="https://code.ionicframework.com/1.0.0-beta.14/js/ionic.bundle.js"></script>
+  <script src="https://code.ionicframework.com/contrib/ionic-contrib-tinder-cards/ionic.tdcards.js"></script>
+  <script src="dictionary.js"></script>
+  <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+</head>
+<body ng-app="starter" no-scroll>
+
+<nav class="w3-sidenav w3-collapse w3-white w3-card-2 w3-animate-left" style="width:200px;">
+  <a href="javascript:void(0)" onclick="w3_close()"
+     class="w3-closenav w3-large w3-hide-large">Close &times;</a>
+  <a href="#">Link 1</a>
+  <a href="#">Link 2</a>
+  <a href="#">Link 3</a>
+  <a href="#">Link 4</a>
+  <a href="#">Link 5</a>
+</nav>
+
+<div class="w3-main" style="margin-left:200px" ng-controller="CardsCtrl">
+  <header class="w3-container w3-teal">
+    <span class="w3-opennav w3-xlarge w3-hide-large" onclick="w3_open()">&#9776;</span>Responsive Sidenav
+  </header>
+
+  <td-cards>
+    <td-card ng-repeat="card in cards" on-destroy="cardDestroyed($index)" on-swipe-left="cardSwipedLeft($index)" on-swipe-right="cardSwipedRight($index)" on-partial-swipe="cardPartialSwipe(amt)" class="card-{{$index}}">
+      <div class="image">
+        <div class="no-text">NOPE</div>
+        <div class="content">
+          <div class="word">{{card.word}} </div>
+          <div class="definition">
+            {{card.definition}}
+            <div class="space"></div>
+            <div class="example">Example:</div>
+            {{card.example}}
           </div>
-        </td-card>
-      </td-cards>
-    </ion-pane>
-  </body>
+
+        </div>
+        <div class="yes-text">LIKE</div>
+      </div>
+      <div class="source"> <span class="sourceLabel">Source: </span> {{card.source}} </div>
+    </td-card>
+  </td-cards>
+
+</div>
+
+<script>
+  function w3_open() {
+    document.getElementsByClassName("w3-sidenav")[0].style.display = "block";
+  }
+  function w3_close() {
+    document.getElementsByClassName("w3-sidenav")[0].style.display = "none";
+  }
+</script>
+
+</body>
 </html>
