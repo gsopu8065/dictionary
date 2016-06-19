@@ -1,5 +1,25 @@
 angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstrap'])
 
+    .run(function($rootScope, CardService){
+        $rootScope.cards = []
+        CardService.getWord().success(function (data) {
+            //alert(data.word)
+            $rootScope.cards.unshift(angular.extend({}, data));
+            CardService.getWord().success(function (data) {
+                //alert(data.word)
+                $rootScope.cards.unshift(angular.extend({}, data));
+                CardService.getWord().success(function (data) {
+                    //alert(data.word)
+                    $rootScope.cards.unshift(angular.extend({}, data));
+                    CardService.getWord().success(function (data) {
+                        //alert(data.word)
+                        $rootScope.cards.unshift(angular.extend({}, data));
+                    });
+                });
+            });
+        });
+    })
+
     .directive('noScroll', function ($document) {
         return {
             restrict: 'A',
@@ -11,7 +31,7 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
         }
     })
 
-    .controller('CardsCtrl', function ($scope, TDCardDelegate, CardService, $modal) {
+    .controller('CardsCtrl', function ($rootScope, $scope, TDCardDelegate, CardService, $modal) {
         var fingerprint = new Fingerprint().get();
 
         CardService.getEmail(fingerprint)
@@ -33,21 +53,21 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
             });
 
 
-        $scope.cards = []
+        $scope.cards = $rootScope.cards
 
         $scope.addCard = function () {
             CardService.getWord().success(function (data) {
-                alert(data.word)
+                //alert(data.word)
                 $scope.cards.unshift(angular.extend({}, data));
             });
         }
-        var init = function () {
+        /*var init = function () {
             for (var i = 0; i <= 3; i++) {
                 $scope.addCard()
             }
         }
 
-        init()
+        init()*/
 
 
         $scope.cardSwipedLeft = function (index) {
