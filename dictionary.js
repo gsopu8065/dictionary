@@ -3,16 +3,16 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
     .run(function($rootScope, CardService){
         $rootScope.cards = []
         CardService.getWord().success(function (data) {
-            //alert(data.word)
+            
             $rootScope.cards.unshift(angular.extend({}, data));
             CardService.getWord().success(function (data) {
-                //alert(data.word)
+                
                 $rootScope.cards.unshift(angular.extend({}, data));
                 CardService.getWord().success(function (data) {
-                    //alert(data.word)
+                    
                     $rootScope.cards.unshift(angular.extend({}, data));
                     CardService.getWord().success(function (data) {
-                        //alert(data.word)
+                        
                         $rootScope.cards.unshift(angular.extend({}, data));
                     });
                 });
@@ -57,7 +57,7 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
 
         $scope.addCard = function () {
             CardService.getWord().success(function (data) {
-                //alert(data.word)
+                
                 $scope.cards.unshift(angular.extend({}, data));
             });
         }
