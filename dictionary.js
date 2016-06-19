@@ -16,20 +16,24 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
     .controller('CardsCtrl', function ($scope, TDCardDelegate, CardService, $modal) {
         var fingerprint = new Fingerprint().get();
 
-        CardService.getEmail(fingerprint).error(function () {
+        CardService.getEmail(fingerprint)
+            .success(function(data){
 
-            $modal.open({
-                templateUrl: 'popup/popup.html',
-                controller: function ($scope, $modalInstance) {
-                    $scope.ok = function (email) {
-                        $modalInstance.close(email);
-                    };
-                }
-            }).result.then(function (result) {
-                $scope.email = result;
+                //TODO: data not found or not available in session
+                $modal.open({
+                    templateUrl: 'popup/popup.html',
+                    controller: function ($scope, $modalInstance) {
+                        $scope.ok = function (email) {
+                            $modalInstance.close(email);
+                        };
+                    }
+                }).result.then(function (result) {
+                    $scope.email = result;
+                    CardService.signUp(fingerprint, result)
+                });
+
             });
 
-        });
 
         $scope.cards = []
         var init = function () {
@@ -55,11 +59,11 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
 
         $scope.cardSwipedLeft = function (index) {
             console.log('LEFT SWIPE');
-            //$scope.addCard();
         };
         $scope.cardSwipedRight = function (index) {
             console.log('RIGHT SWIPE');
-            //$scope.addCard();
+            console.log($scope.cards[index])
+            CardService.saveWord($scope.email, $scope.cards[index])
         };
 
         $scope.cardDestroyed = function (index) {
@@ -67,18 +71,6 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
             $scope.addCard();
         };
     })
-
-    .controller('CardCtrl', function ($scope, TDCardDelegate) {
-        $scope.cardSwipedLeft = function (index) {
-            console.log('LEFT SWIPE');
-            $scope.addCard();
-        };
-        $scope.cardSwipedRight = function (index) {
-            console.log('RIGHT SWIPE');
-            $scope.addCard();
-        };
-    })
-
     .factory('CardService', ["$http", function ($http) {
         var CardService = {};
         CardService.getWord = function () {
@@ -92,6 +84,41 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
             return $http({
                 method: 'get',
                 url: 'https://dictionaryweb.herokuapp.com/getEmail?deviceId=' + deviceId,
+            });
+        };
+
+        CardService.signUp = function (deviceId, email) {
+            return $http({
+                method: 'post',
+                url: 'https://dictionaryweb.herokuapp.com/signup',
+                headers: {
+                    'Content-Type': "content/json"
+                },
+                data: {
+                    deviceId: deviceId,
+                    emailId: email
+                }
+            });
+        };
+
+        CardService.saveWord = function (email, word) {
+            return $http({
+                method: 'post',
+                url: 'https://dictionaryweb.herokuapp.com/saveWord',
+                headers: {
+                    'Content-Type': "content/json"
+                },
+                data: {
+                    emailId: email,
+                    word: word
+                }
+            });
+        };
+
+        CardService.getSavedWords = function (email) {
+            return $http({
+                method: 'get',
+                url: 'https://dictionaryweb.herokuapp.com/getSavedWords?email=' + email,
             });
         };
 
