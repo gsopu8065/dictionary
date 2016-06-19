@@ -37,15 +37,12 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
 
         $scope.addCard = function () {
             CardService.getWord().success(function (data) {
+                alert(data.word)
                 $scope.cards.unshift(angular.extend({}, data));
             });
         }
         var init = function () {
             for (var i = 0; i <= 3; i++) {
-                /*CardService.getWord().success(function (data) {
-                    console.log(data.word)
-                    $scope.cards.push(data)
-                });*/
                 $scope.addCard()
             }
         }
