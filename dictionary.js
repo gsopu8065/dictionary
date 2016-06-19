@@ -1,11 +1,9 @@
 angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstrap'])
 
     .directive('noScroll', function ($document) {
-
         return {
             restrict: 'A',
             link: function ($scope, $element, $attr) {
-
                 $document.on('touchmove', function (e) {
                     e.preventDefault();
                 });
@@ -36,26 +34,24 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
 
 
         $scope.cards = []
+
+        $scope.addCard = function () {
+            CardService.getWord().success(function (data) {
+                $scope.cards.unshift(angular.extend({}, data));
+            });
+        }
         var init = function () {
             for (var i = 0; i <= 3; i++) {
-                CardService.getWord().success(function (data) {
+                /*CardService.getWord().success(function (data) {
                     console.log(data.word)
                     $scope.cards.push(data)
-                });
+                });*/
+                $scope.addCard()
             }
         }
 
         init()
 
-        $scope.cardDestroyed = function (index) {
-            $scope.cards.splice(index, 1);
-        };
-
-        $scope.addCard = function () {
-            CardService.getWord().success(function (data) {
-                $scope.cards.unshift(data);
-            });
-        }
 
         $scope.cardSwipedLeft = function (index) {
             console.log('LEFT SWIPE');
@@ -68,6 +64,7 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
 
         $scope.cardDestroyed = function (index) {
             console.log('cardDestroyed');
+            $scope.cards.splice(index, 1);
             $scope.addCard();
         };
     })
