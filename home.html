@@ -39,8 +39,8 @@
 
   <td-cards>
     <td-card ng-repeat="card in cards" on-destroy="cardDestroyed($index)" on-swipe-left="cardSwipedLeft($index)" on-swipe-right="cardSwipedRight($index)" on-partial-swipe="cardPartialSwipe(amt)" class="card-{{$index}}">
+      <div class="no-text">IGNORE</div>
       <div class="image">
-        <div class="no-text">NOPE</div>
         <div class="content">
           <div class="word">{{card.word}} </div>
           <div class="definition">
@@ -49,10 +49,9 @@
             <div class="example">Example:</div>
             {{card.example}}
           </div>
-
         </div>
-        <div class="yes-text">LIKE</div>
       </div>
+      <div class="yes-text">SAVE IT</div>
       <div class="source"> <span class="sourceLabel">Source: </span> {{card.source}} </div>
     </td-card>
   </td-cards>
@@ -61,7 +60,7 @@
 
 <script src="w3/collide.js"></script>
 <script src="w3/ionic.bundle.js"></script>
-<script src="http://www.loringdodge.com/files/ionic.tdcards.js"></script>
+<script src="w3/iconic.tdcards.js"></script>
 <script src="w3/fingerprint.min.js"></script>
 <script src="dictionary.js"></script>
 <script src="w3/ui-bootstrap-tpls-0.10.0.min.js"></script>
