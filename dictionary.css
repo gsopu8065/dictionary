@@ -126,7 +126,7 @@ td-card .content .definition .example{
 }
 
 .emailText{
-    border: 1px solid !important;
+    /*border: 1px solid !important;*/
     margin-left: 10px;
     width: 85%;
 }
@@ -149,4 +149,15 @@ td-card .content .definition .example{
     margin-bottom: 8px;
     border: 1px solid;
     width: 72%;
+}
+
+.savedListButton{
+    background-color: cadetblue;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.sidenavHeader{
+    color: cadetblue;
+    margin-left: 10px;
 }

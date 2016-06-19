@@ -36,22 +36,27 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
 
         CardService.getEmail(fingerprint)
             .success(function(data){
+                if(data.length > 0 ){
+                    $scope.email = data[0].email;
+                }
+                else{
+                    $modal.open({
+                        templateUrl: 'popup/popup.html',
+                        controller: function ($scope, $modalInstance) {
+                            $scope.ok = function (email) {
+                                $modalInstance.close(email);
+                            };
+                        }
+                    }).result.then(function (result) {
+                        $scope.email = result;
+                        CardService.signUp(fingerprint, result)
+                            .success(function(signUpRes){
+                                console.log(signUpRes)
+                            })
+                    });
+                }
 
-                //TODO: data not found or not available in session
-                $modal.open({
-                    templateUrl: 'popup/popup.html',
-                    controller: function ($scope, $modalInstance) {
-                        $scope.ok = function (email) {
-                            $modalInstance.close(email);
-                        };
-                    }
-                }).result.then(function (result) {
-                    $scope.email = result;
-                    CardService.signUp(fingerprint, result)
-                });
-
-            });
-
+            })
 
         $scope.cards = $rootScope.cards
 
@@ -61,22 +66,15 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
                 $scope.cards.unshift(angular.extend({}, data));
             });
         }
-        /*var init = function () {
-            for (var i = 0; i <= 3; i++) {
-                $scope.addCard()
-            }
-        }
-
-        init()*/
-
 
         $scope.cardSwipedLeft = function (index) {
             console.log('LEFT SWIPE');
         };
         $scope.cardSwipedRight = function (index) {
-            console.log('RIGHT SWIPE');
-            console.log($scope.cards[index])
-            CardService.saveWord($scope.email, $scope.cards[index])
+            CardService.saveWord($scope.email, $scope.cards[index].word)
+                .success(function(signUpRes){
+                    console.log(signUpRes)
+                })
         };
 
         $scope.cardDestroyed = function (index) {
@@ -105,12 +103,9 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
             return $http({
                 method: 'post',
                 url: 'https://dictionaryweb.herokuapp.com/signup',
-                headers: {
-                    'Content-Type': "content/json"
-                },
                 data: {
-                    deviceId: deviceId,
-                    emailId: email
+                    _id: deviceId+"",
+                    email: email
                 }
             });
         };
@@ -119,12 +114,9 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
             return $http({
                 method: 'post',
                 url: 'https://dictionaryweb.herokuapp.com/saveWord',
-                headers: {
-                    'Content-Type': "content/json"
-                },
                 data: {
-                    emailId: email,
-                    word: word
+                    email: email,
+                    word: [word]
                 }
             });
         };

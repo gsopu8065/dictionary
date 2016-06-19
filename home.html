@@ -9,20 +9,22 @@
   <link href="w3/ionic.css" rel="stylesheet">
   <link rel="stylesheet" href="w3/w3.css">
 </head>
-<body ng-app="starter" no-scroll>
+<body ng-app="starter" no-scroll ng-controller="CardsCtrl">
 
 <nav class="w3-sidenav w3-collapse w3-white w3-card-2 w3-animate-left" style="width:200px;">
   <a href="javascript:void(0)" onclick="w3_close()"
      class="w3-closenav w3-large w3-hide-large"> &times;</a>
 
+  <a href="#" class="savedListButton">My Saved List </a>
   <div class="sidenav">
-    <input class="emailText" type="text"/>
-    <input class="updateButton" type="submit" value="UPDATE"/>
+    <div class="sidenavHeader">Profile</div>
+    <label class="emailText">{{email}}</label>
+   <!-- <input class="emailText" type="text" ng-model="email"/>-->
+    <!--<input class="updateButton" type="submit" value="UPDATE"/>-->
   </div>
-  <a href="#">My Saved List </a>
 
+  <div class="sidenavHeader">Categories</div>
   <div class="categories">
-    <div>Categories</div>
     <div class="line"></div>
     <input type="checkbox"> All <br/>
     <input type="checkbox"> American Slang <br/>
@@ -31,7 +33,7 @@
   </div>
 </nav>
 
-<div class="w3-main" style="margin-left:200px" ng-controller="CardsCtrl">
+<div class="w3-main" style="margin-left:200px">
   <header class="w3-container w3-teal">
     <span class="w3-opennav w3-xlarge w3-hide-large" onclick="w3_open()">&#9776;</span>
     <span class="title"> Words Swipe </span>
