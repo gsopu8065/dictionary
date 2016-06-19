@@ -7,26 +7,29 @@
 
   <link rel="stylesheet" href="https://code.ionicframework.com/contrib/ionic-contrib-tinder-cards/ionic.tdcards.css">
   <link rel="stylesheet" href="dictionary.css">
-
   <link href="https://code.ionicframework.com/1.0.0-beta.14/css/ionic.css" rel="stylesheet">
-
-  <script src="https://code.ionicframework.com/collide/0.0.4/collide.js"></script>
-
-  <script src="https://code.ionicframework.com/1.0.0-beta.14/js/ionic.bundle.js"></script>
-  <script src="https://code.ionicframework.com/contrib/ionic-contrib-tinder-cards/ionic.tdcards.js"></script>
-  <script src="dictionary.js"></script>
   <link rel="stylesheet" href="w3/w3.css">
 </head>
 <body ng-app="starter" no-scroll>
 
 <nav class="w3-sidenav w3-collapse w3-white w3-card-2 w3-animate-left" style="width:200px;">
   <a href="javascript:void(0)" onclick="w3_close()"
-     class="w3-closenav w3-large w3-hide-large">Close &times;</a>
-  <a href="#">Link 1</a>
-  <a href="#">Link 2</a>
-  <a href="#">Link 3</a>
-  <a href="#">Link 4</a>
-  <a href="#">Link 5</a>
+     class="w3-closenav w3-large w3-hide-large"> &times;</a>
+
+  <div class="sidenav">
+    <input class="emailText" type="text"/>
+    <input class="updateButton" type="submit" value="UPDATE"/>
+  </div>
+  <a href="#">My Saved List </a>
+
+  <div class="categories">
+    <div>Categories</div>
+    <div class="line"></div>
+    <input type="checkbox"> All <br/>
+    <input type="checkbox"> American Slang <br/>
+    <input type="checkbox"> Verbs <br/>
+    <input type="checkbox"> Idioms <br/>
+  </div>
 </nav>
 
 <div class="w3-main" style="margin-left:200px" ng-controller="CardsCtrl">
@@ -57,7 +60,15 @@
 
 </div>
 
+<script src="https://code.ionicframework.com/collide/0.0.4/collide.js"></script>
+<script src="https://code.ionicframework.com/1.0.0-beta.14/js/ionic.bundle.js"></script>
+<script src="https://code.ionicframework.com/contrib/ionic-contrib-tinder-cards/ionic.tdcards.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fingerprintjs/0.5.3/fingerprint.min.js"></script>
+<script src="dictionary.js"></script>
+<script src="w3/ui-bootstrap-tpls-0.10.0.min.js"></script>
+
 <script>
+
   function w3_open() {
     document.getElementsByClassName("w3-sidenav")[0].style.display = "block";
   }

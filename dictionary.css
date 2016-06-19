@@ -20,6 +20,7 @@ td-card .image {
     position: absolute;
     height: 100%;
     overflow: scroll;
+    width: 100%;
 }
 
 td-card .content {
@@ -109,7 +110,43 @@ td-card .content .definition .example{
     float: left;
 }
 
+.w3-closenav{
+    text-align: end;
+    font-weight: bolder;
+}
+
 .title{
     font-size: 25px;
     font-family: initial;
+}
+
+.sidenav{
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+.emailText{
+    border: 1px solid !important;
+    margin-left: 10px;
+    width: 85%;
+}
+
+.updateButton{
+    border: 1px solid !important;
+    margin-top: 10px;
+    margin-left: 10px;
+    background: cadetblue;
+    font-family: initial;
+}
+
+.categories{
+    margin-left: 10px;
+    margin-top: 5px;
+}
+
+.line{
+    margin-top: 8px;
+    margin-bottom: 8px;
+    border: 1px solid;
+    width: 72%;
 }

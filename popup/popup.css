@@ -1,0 +1,19 @@
+.modal.fade.in{
+    height: 200px;
+    position: relative;
+}
+
+.modal-header{
+    background: cadetblue;
+    color: white;
+    font-family: inherit;
+}
+
+.btn-primary{
+    background: burlywood;
+    color: black;
+}
+
+.emailInput{
+    height: 28px !important;
+}

@@ -1,25 +1,39 @@
-angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards'])
+angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstrap'])
 
-    .directive('noScroll', function($document) {
+    .directive('noScroll', function ($document) {
 
         return {
             restrict: 'A',
-            link: function($scope, $element, $attr) {
+            link: function ($scope, $element, $attr) {
 
-                $document.on('touchmove', function(e) {
+                $document.on('touchmove', function (e) {
                     e.preventDefault();
                 });
             }
         }
     })
 
-    .controller('CardsCtrl', function($scope, TDCardDelegate, CardService) {
-        console.log('CARDS CTRL');
+    .controller('CardsCtrl', function ($scope, TDCardDelegate, CardService, $modal) {
+        var fingerprint = new Fingerprint().get();
+
+        CardService.getEmail(fingerprint).error(function () {
+
+            $modal.open({
+                templateUrl: 'popup/popup.html',
+                controller: function ($scope, $modalInstance) {
+                    $scope.ok = function (email) {
+                        $modalInstance.close(email);
+                    };
+                }
+            }).result.then(function (result) {
+                $scope.email = result;
+            });
+
+        });
 
         $scope.cards = []
-        var init = function(){
-            for(var i=0;i<=3;i++)
-            {
+        var init = function () {
+            for (var i = 0; i <= 3; i++) {
                 CardService.getWord().success(function (data) {
                     console.log(data.word)
                     $scope.cards.push(data)
@@ -29,48 +43,55 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards'])
 
         init()
 
-        $scope.cardDestroyed = function(index) {
+        $scope.cardDestroyed = function (index) {
             $scope.cards.splice(index, 1);
         };
 
-        $scope.addCard = function() {
+        $scope.addCard = function () {
             CardService.getWord().success(function (data) {
                 $scope.cards.unshift(data);
             });
         }
 
-        $scope.cardSwipedLeft = function(index) {
+        $scope.cardSwipedLeft = function (index) {
             console.log('LEFT SWIPE');
             //$scope.addCard();
         };
-        $scope.cardSwipedRight = function(index) {
+        $scope.cardSwipedRight = function (index) {
             console.log('RIGHT SWIPE');
             //$scope.addCard();
         };
 
-        $scope.cardDestroyed = function(index) {
+        $scope.cardDestroyed = function (index) {
             console.log('cardDestroyed');
             $scope.addCard();
         };
     })
 
-    .controller('CardCtrl', function($scope, TDCardDelegate) {
-        $scope.cardSwipedLeft = function(index) {
+    .controller('CardCtrl', function ($scope, TDCardDelegate) {
+        $scope.cardSwipedLeft = function (index) {
             console.log('LEFT SWIPE');
             $scope.addCard();
         };
-        $scope.cardSwipedRight = function(index) {
+        $scope.cardSwipedRight = function (index) {
             console.log('RIGHT SWIPE');
             $scope.addCard();
         };
     })
 
-    .factory('CardService', ["$http", function($http) {
+    .factory('CardService', ["$http", function ($http) {
         var CardService = {};
-        CardService.getWord = function(){
+        CardService.getWord = function () {
             return $http({
                 method: 'get',
                 url: 'https://dictionaryweb.herokuapp.com/random',
+            });
+        };
+
+        CardService.getEmail = function (deviceId) {
+            return $http({
+                method: 'get',
+                url: 'https://dictionaryweb.herokuapp.com/getEmail?deviceId=' + deviceId,
             });
         };
 
