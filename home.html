@@ -11,32 +11,50 @@
 </head>
 <body ng-app="starter" no-scroll ng-controller="CardsCtrl">
 
-<nav class="w3-sidenav w3-collapse w3-white w3-card-2 w3-animate-left" style="width:200px;">
-  <a href="javascript:void(0)" onclick="w3_close()"
-     class="w3-closenav w3-large w3-hide-large"> &times;</a>
+<nav class="w3-leftsidenav w3-sidenav w3-white" style="display:none">
+  <header class="w3-container w3-teal">
+    <span class="title" style="margin-left: 30px"> Words Swipe </span>
+    <span onclick="left_close()" class="w3-closenav" style="float: right;"> &times;</span>
+  </header>
 
-  <a href="#" class="savedListButton">My Saved List </a>
   <div class="sidenav">
     <div class="sidenavHeader">Profile</div>
-    <label class="emailText">{{email}}</label>
-   <!-- <input class="emailText" type="text" ng-model="email"/>-->
-    <!--<input class="updateButton" type="submit" value="UPDATE"/>-->
+    <span>{{email}}</span>
   </div>
 
   <div class="sidenavHeader">Categories</div>
   <div class="categories">
-    <div class="line"></div>
-    <input type="checkbox"> All <br/>
-    <input type="checkbox"> American Slang <br/>
-    <input type="checkbox"> Verbs <br/>
-    <input type="checkbox"> Idioms <br/>
+    <label><input type="checkbox" class="ios-switch green" checked/>
+      <div><div></div></div>
+      <div class="checkBoxLabel">American slang</div>
+    </label>
+
+    <label><input type="checkbox" class="ios-switch green" checked/>
+      <div><div></div></div>
+      <div class="checkBoxLabel">Verbs</div>
+    </label>
+
+    <label><input type="checkbox" class="ios-switch green" checked/>
+      <div><div></div></div>
+      <div class="checkBoxLabel">Idioms</div>
+    </label>
+
   </div>
+</nav>
+
+<nav class="w3-sidenav w3-collapse w3-white" style="right:0" id="rightSideNav">
+  <header class="w3-container w3-teal">
+    <span onclick="right_close()" class="w3-closenav" style="float: left;"> &times;</span>
+    <span class="title" style="margin-right: 26px"> Saved Words </span>
+  </header>
+  
 </nav>
 
 <div class="w3-main" style="margin-left:200px">
   <header class="w3-container w3-teal">
-    <span class="w3-opennav w3-xlarge w3-hide-large" onclick="w3_open()">&#9776;</span>
+    <span class="w3-opennav w3-xlarge w3-hide-large" onclick="left_open()">&#9776;</span>
     <span class="title"> Words Swipe </span>
+    <span class="w3-opennav w3-xlarge w3-hide-large" style="float: right;line-height: 42px;" onclick="right_open()">&#9775;</span>
   </header>
 
   <td-cards>
@@ -69,11 +87,20 @@
 
 <script>
 
-  function w3_open() {
-    document.getElementsByClassName("w3-sidenav")[0].style.display = "block";
+  function left_open() {
+    document.getElementsByClassName("w3-leftsidenav")[0].style.width = "98%";
+    document.getElementsByClassName("w3-leftsidenav")[0].style.display = "block";
   }
-  function w3_close() {
-    document.getElementsByClassName("w3-sidenav")[0].style.display = "none";
+  function left_close() {
+    document.getElementsByClassName("w3-leftsidenav")[0].style.display = "none";
+  }
+
+  function right_open() {
+    document.getElementById("rightSideNav").style.width = "98%";
+    document.getElementById("rightSideNav").style.display = "block";
+  }
+  function right_close() {
+    document.getElementById("rightSideNav").style.display = "none";
   }
 </script>
 
