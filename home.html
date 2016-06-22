@@ -45,16 +45,27 @@
 <nav class="w3-sidenav w3-collapse w3-white" style="right:0" id="rightSideNav">
   <header class="w3-container w3-teal">
     <span onclick="right_close()" class="w3-closenav" style="float: left;"> &times;</span>
-    <span class="title" style="margin-right: 26px"> Saved Words </span>
+    <span class="title" style="margin-right: 26px"> Words Swipe </span>
   </header>
-  
+  <div class="savedList">
+    <ul>
+      <li ng-repeat="savedWord in savedWords">
+        <div class="savedWord">{{savedWord.word}}</div>
+        <p>
+          {{savedWord.definition}} <br/>
+          <span class="savedWordExample">Example:</span> </br>
+          {{savedWord.example}}
+        </p>
+      </li>
+    </ul>
+  </div>
 </nav>
 
 <div class="w3-main" style="margin-left:200px">
   <header class="w3-container w3-teal">
     <span class="w3-opennav w3-xlarge w3-hide-large" onclick="left_open()">&#9776;</span>
     <span class="title"> Words Swipe </span>
-    <span class="w3-opennav w3-xlarge w3-hide-large" style="float: right;line-height: 42px;" onclick="right_open()">&#9775;</span>
+    <span class="w3-opennav w3-xlarge w3-hide-large" style="float: right;line-height: 42px;" ng-click="loadSavedWords()">&#9775;</span>
   </header>
 
   <td-cards>
@@ -95,10 +106,10 @@
     document.getElementsByClassName("w3-leftsidenav")[0].style.display = "none";
   }
 
-  function right_open() {
+  /*function right_open($scope) {
     document.getElementById("rightSideNav").style.width = "98%";
     document.getElementById("rightSideNav").style.display = "block";
-  }
+  }*/
   function right_close() {
     document.getElementById("rightSideNav").style.display = "none";
   }

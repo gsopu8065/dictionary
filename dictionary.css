@@ -214,3 +214,57 @@ input[type="checkbox"].ios-switch:checked + div > div {
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3), 0px 0px 0 1px rgba(8, 80, 172,1);
 }
 
+/* saved list*/
+.savedList *{margin: 0; padding: 0;}
+
+.savedList {
+    margin: 20px;
+    position: fixed;
+    overflow: scroll;
+    height: 100%;
+    width: 90%;
+}
+
+ul {
+    list-style-type: none;
+    width: 100%;
+}
+
+h3 {
+    font: bold 20px/1.5 Helvetica, Verdana, sans-serif;
+}
+
+li p {
+    font: 200 12px/1.5 Georgia, Times New Roman, serif;
+}
+
+li {
+    margin-bottom: 10px !important;
+    overflow: auto;
+}
+
+li:hover {
+    background: #eee;
+    cursor: pointer;
+}
+
+li:nth-child(odd) {
+    background: #ddd;
+}
+
+li:nth-child(even) {
+    background: white;
+}
+
+.savedWord {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: 900;
+    color: cadetblue;
+}
+
+.savedWordExample{
+    color: cadetblue;
+    font-weight: 800;
+}

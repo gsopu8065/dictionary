@@ -1,22 +1,10 @@
 angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstrap'])
 
-    .run(function($rootScope, CardService){
+    .run(function($rootScope, $q, CardService){
         $rootScope.cards = []
-        CardService.getWord().success(function (data) {
-            
-            $rootScope.cards.unshift(angular.extend({}, data));
-            CardService.getWord().success(function (data) {
-                
-                $rootScope.cards.unshift(angular.extend({}, data));
-                CardService.getWord().success(function (data) {
-                    
-                    $rootScope.cards.unshift(angular.extend({}, data));
-                    CardService.getWord().success(function (data) {
-                        
-                        $rootScope.cards.unshift(angular.extend({}, data));
-                    });
-                });
-            });
+        CardService.getWords().success(function (data) {
+            $rootScope.cards = data
+            $rootScope.$emit('jack');
         });
     })
 
@@ -58,11 +46,23 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
 
             })
 
-        $scope.cards = $rootScope.cards
+        var unbindHandler = $rootScope.$on('jack', function () {
+            $scope.cards = $rootScope.cards
+            unbindHandler();
+        });
+
+        $scope.loadSavedWords = function () {
+            document.getElementById("rightSideNav").style.width = "98%";
+            document.getElementById("rightSideNav").style.display = "block";
+            CardService.getSavedWords($scope.email)
+                .success(function(res){
+                    $scope.savedWords = res.words
+                })
+        }
+
 
         $scope.addCard = function () {
             CardService.getWord().success(function (data) {
-                
                 $scope.cards.unshift(angular.extend({}, data));
             });
         }
@@ -71,7 +71,7 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
             console.log('LEFT SWIPE');
         };
         $scope.cardSwipedRight = function (index) {
-            CardService.saveWord($scope.email, $scope.cards[index].word)
+            CardService.saveWord($scope.email, $scope.cards[index])
                 .success(function(signUpRes){
                     console.log(signUpRes)
                 })
@@ -89,6 +89,13 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
             return $http({
                 method: 'get',
                 url: 'https://dictionaryweb.herokuapp.com/random',
+            });
+        };
+
+        CardService.getWords = function () {
+            return $http({
+                method: 'get',
+                url: 'https://dictionaryweb.herokuapp.com/randomWords',
             });
         };
 
