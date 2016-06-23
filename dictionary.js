@@ -58,7 +58,7 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
         });
 
         $scope.loadSavedWords = function () {
-            document.getElementById("rightSideNav").style.width = "98%";
+            document.getElementById("rightSideNav").style.width = "100%";
             document.getElementById("rightSideNav").style.display = "block";
             CardService.getSavedWords($scope.email)
                 .success(function(res){

@@ -13,8 +13,8 @@
 
 <nav class="w3-leftsidenav w3-sidenav w3-white" style="display:none">
   <header class="w3-container w3-teal">
-    <span class="title" style="margin-left: 30px"> Words Swipe </span>
-    <span onclick="left_close()" class="w3-closenav" style="float: right;"> &times;</span>
+    <span class="title" style="margin-left: 40px"> Words Swipe </span>
+    <span onclick="left_close()" class="w3-closenav" style="float: right;margin-right: 10px;margin-left: 10px;"> &times;</span>
   </header>
 
   <div class="sidenav">
@@ -44,8 +44,8 @@
 
 <nav class="w3-sidenav w3-collapse w3-white" style="right:0" id="rightSideNav">
   <header class="w3-container w3-teal">
-    <span onclick="right_close()" class="w3-closenav" style="float: left;"> &times;</span>
-    <span class="title" style="margin-right: 26px"> Words Swipe </span>
+    <span onclick="right_close()" class="w3-closenav" style="float: left;margin-left: 10px;margin-right: 10px;"> &times;</span>
+    <span class="title" style="margin-right: 40px"> Words Swipe </span>
   </header>
   <label><input type="text" name="search" placeholder=" Search.." class="searchText" ng-model="search.word"></label>
   <div class="savedList">
@@ -101,7 +101,7 @@
 <script>
 
   function left_open() {
-    document.getElementsByClassName("w3-leftsidenav")[0].style.width = "98%";
+    document.getElementsByClassName("w3-leftsidenav")[0].style.width = "100%";
     document.getElementsByClassName("w3-leftsidenav")[0].style.display = "block";
   }
   function left_close() {

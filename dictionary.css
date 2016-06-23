@@ -104,10 +104,13 @@ td-card .content .definition .example{
 .w3-teal{
     height: 45px;
     text-align: center;
+    padding: 0 !important;
 }
 
 .w3-opennav{
     float: left;
+    padding: 0.01em 16px;
+
 }
 
 .w3-closenav{
