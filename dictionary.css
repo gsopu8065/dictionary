@@ -220,8 +220,8 @@ input[type="checkbox"].ios-switch:checked + div > div {
 
 .savedList {
     margin: 20px;
-    /*position: fixed;*/
-    overflow: auto;
+    /*position: fixed;
+    overflow: auto;*/
     height: 100%;
     width: 90%;
     display:block;
