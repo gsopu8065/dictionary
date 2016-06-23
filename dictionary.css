@@ -243,7 +243,7 @@ li p {
 
 li {
     margin-bottom: 10px !important;
-    overflow: auto;
+    /*overflow: auto;*/
 }
 
 li:hover {
