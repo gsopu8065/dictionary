@@ -8,12 +8,12 @@
 		<h4>Email Signup</h4>
 	</div>
 	<div class="modal-body">
-		<form class="form-horizontal">
+		<form class="form-horizontal" name="myform">
 			<div  class="control-group">
 				<div class="controls">
 					<label class="control-label">Please provide your email id to SignUp. It is useful to save your favourite words </label>
-					Email: <input type="text" class="emailInput" ng-model="email" />
-					<button class="btn btn-primary" ng-click="ok(email)">OK</button>
+					<input type="email" name="email" class="emailInput" ng-model="email" placeholder="Email" required/>
+					<button class="btn btn-primary" ng-disabled="myform.$invalid" ng-click="ok(email)">OK</button>
 				</div>
 			</div>
 		</form>

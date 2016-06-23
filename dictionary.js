@@ -1,4 +1,4 @@
-angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstrap'])
+angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstrap', 'ngStorage'])
 
     .run(function($rootScope, $q, CardService){
         $rootScope.cards = []
@@ -19,32 +19,38 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
         }
     })
 
-    .controller('CardsCtrl', function ($rootScope, $scope, TDCardDelegate, CardService, $modal) {
+    .controller('CardsCtrl', function ($rootScope, $scope, TDCardDelegate, CardService, $modal, $sessionStorage) {
         var fingerprint = new Fingerprint().get();
 
-        CardService.getEmail(fingerprint)
-            .success(function(data){
-                if(data.length > 0 ){
-                    $scope.email = data[0].email;
-                }
-                else{
-                    $modal.open({
-                        templateUrl: 'popup/popup.html',
-                        controller: function ($scope, $modalInstance) {
-                            $scope.ok = function (email) {
-                                $modalInstance.close(email);
-                            };
-                        }
-                    }).result.then(function (result) {
-                        $scope.email = result;
-                        CardService.signUp(fingerprint, result)
-                            .success(function(signUpRes){
-                                console.log(signUpRes)
-                            })
-                    });
-                }
+        $scope.email = $sessionStorage.email;
+        if(!$scope.email){
+            CardService.getEmail(fingerprint)
+                .success(function(data){
+                    if(data.length > 0 ){
+                        $scope.email = data[0].email;
+                        $sessionStorage.email = data[0].email;
+                    }
+                    else{
+                        $modal.open({
+                            templateUrl: 'popup/popup.html',
+                            controller: function ($scope, $modalInstance) {
+                                $scope.ok = function (email) {
+                                    $modalInstance.close(email);
+                                };
+                            }
+                        }).result.then(function (result) {
+                            $scope.email = result;
+                            $sessionStorage.email = $scope.email;
+                            CardService.signUp(fingerprint, result)
+                                .success(function(signUpRes){
+                                    console.log(signUpRes)
+                                })
+                        });
+                    }
 
-            })
+                })
+        }
+
 
         var unbindHandler = $rootScope.$on('jack', function () {
             $scope.cards = $rootScope.cards

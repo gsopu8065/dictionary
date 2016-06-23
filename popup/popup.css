@@ -1,5 +1,5 @@
 .modal.fade.in{
-    height: 200px;
+    height: 230px;
     position: relative;
     left: 0px;
 }
@@ -17,4 +17,9 @@
 
 .emailInput{
     height: 28px !important;
+}
+
+.btn-primary[disabled]{
+    color: #333333;
+    background-color: #e6e6e6;
 }
