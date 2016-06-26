@@ -116,7 +116,7 @@
                         {{card.example}}
                     </div>
                     <div ng-if="card.definitions != undefined" class="definition">
-                        <div ng-repeat="definition in card.definitions track by $index" ng-if="$index <= 2">{{definition}}</div>
+                        <div ng-repeat="definition in card.definitions track by $index" ng-if="$index <= 1">{{definition}}</div>
                         <div ng-if="card.synonyms.length > 0" class="example">Synonyms:</div>
                         <span ng-repeat="synonym in card.synonyms track by $index" ng-if="$index <= 4">{{synonym}}, </span>
                         <div ng-if="card.examples.length > 0" class="example">Example:</div>
