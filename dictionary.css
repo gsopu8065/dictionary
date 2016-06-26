@@ -282,3 +282,13 @@ li:nth-child(even) {
     margin-top: 10px;
     width: 90%;
 }
+
+
+.closeButton{
+    position: absolute;
+    right: 20px;
+    font-weight: bolder;
+    margin-top: -5px;
+    margin-left: 15px;
+    margin-bottom: 10px;
+}

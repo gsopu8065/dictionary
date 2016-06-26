@@ -1,92 +1,133 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Dictionary</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-  <link rel="stylesheet" href="w3/ionic.tdcards.css">
-  <link rel="stylesheet" href="dictionary.css">
-  <link href="w3/ionic.css" rel="stylesheet">
-  <link rel="stylesheet" href="w3/w3.css">
+    <title>Dictionary</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <link rel="stylesheet" href="w3/ionic.tdcards.css">
+    <link rel="stylesheet" href="dictionary.css">
+    <link href="w3/ionic.css" rel="stylesheet">
+    <link rel="stylesheet" href="w3/w3.css">
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
 </head>
 <body ng-app="starter" no-scroll ng-controller="CardsCtrl">
 
 <nav class="w3-leftsidenav w3-sidenav w3-white" style="display:none">
-  <header class="w3-container w3-teal">
-    <span class="title" style="margin-left: 40px"> Words Swipe </span>
-    <span onclick="left_close()" class="w3-closenav" style="float: right;margin-right: 10px;margin-left: 10px;"> &times;</span>
-  </header>
+    <header class="w3-container w3-teal">
+        <span class="title" style="margin-left: 40px"> Words Swipe </span>
+        <span ng-click="left_close()" class="w3-closenav"
+              style="float: right;margin-right: 10px;margin-left: 10px;"> &times;</span>
+    </header>
 
-  <div class="sidenav">
-    <div class="sidenavHeader">Profile</div>
-    <span>{{email}}</span>
-  </div>
+    <div class="sidenav">
+        <div class="sidenavHeader">Profile</div>
+        <span>{{email}}</span>
+    </div>
 
-  <div class="sidenavHeader">Categories</div>
-  <div class="categories">
-    <label><input type="checkbox" class="ios-switch green" checked/>
-      <div><div></div></div>
-      <div class="checkBoxLabel">American slang</div>
-    </label>
+    <div class="sidenavHeader">Categories</div>
+    <div class="categories">
+        <label><input type="checkbox" ng-model="slangCheck" ng-change="verifyCheck()" class="ios-switch green"/>
+            <div>
+                <div></div>
+            </div>
+            <div class="checkBoxLabel">American slang</div>
+        </label>
 
-    <label><input type="checkbox" class="ios-switch green" checked/>
-      <div><div></div></div>
-      <div class="checkBoxLabel">Verbs</div>
-    </label>
+        <label><input type="checkbox" ng-model="verbsCheck" ng-change="verifyCheck()" class="ios-switch green"/>
+            <div>
+                <div></div>
+            </div>
+            <div class="checkBoxLabel">Verbs</div>
+        </label>
 
-    <label><input type="checkbox" class="ios-switch green" checked/>
-      <div><div></div></div>
-      <div class="checkBoxLabel">Idioms</div>
-    </label>
+        <label><input type="checkbox" ng-model="emotionsCheck" ng-change="verifyCheck()" class="ios-switch green"/>
+            <div>
+                <div></div>
+            </div>
+            <div class="checkBoxLabel">Emotions/Feelings</div>
+        </label>
 
-  </div>
+        <label><input type="checkbox" ng-model="adjectivesCheck" ng-change="verifyCheck()" class="ios-switch green"/>
+            <div>
+                <div></div>
+            </div>
+            <div class="checkBoxLabel">Adjectives</div>
+        </label>
+
+        <label><input type="checkbox" ng-model="descriptiveCheck" ng-change="verifyCheck()" class="ios-switch green"/>
+            <div>
+                <div></div>
+            </div>
+            <div class="checkBoxLabel">Descriptive Words</div>
+        </label>
+
+    </div>
 </nav>
 
 <nav class="w3-sidenav w3-collapse w3-white" style="right:0" id="rightSideNav">
-  <header class="w3-container w3-teal">
-    <span onclick="right_close()" class="w3-closenav" style="float: left;margin-left: 10px;margin-right: 10px;"> &times;</span>
-    <span class="title" style="margin-right: 40px"> Words Swipe </span>
-  </header>
-  <label><input type="text" name="search" placeholder=" Search.." class="searchText" ng-model="search.word"></label>
-  <div class="savedList">
-    <ul>
-      <li ng-repeat="savedWord in savedWords | filter:search">
-        <div class="savedWord">{{savedWord.word}}</div>
-        <p>
-          {{savedWord.definition}} <br/>
-          <span class="savedWordExample">Example:</span> </br>
-          {{savedWord.example}}
-        </p>
-      </li>
-    </ul>
-  </div>
+    <header class="w3-container w3-teal">
+        <span onclick="right_close()" class="w3-closenav"
+              style="float: left;margin-left: 10px;margin-right: 10px;"> &times;</span>
+        <span class="title" style="margin-right: 40px"> Words Swipe </span>
+    </header>
+    <label><input type="text" name="search" placeholder=" Search.." class="searchText" ng-model="search.word"></label>
+    <div class="savedList">
+        <ul>
+            <li ng-repeat="savedWord in savedWords | filter:search">
+                <span ng-click="removeSavedWord(savedWord)" class="closeButton">&#9747</span>
+                <div class="savedWord">{{savedWord.word}}</div>
+                <p ng-if="savedWord.definition != undefined">
+                    {{savedWord.definition}} <br/>
+                    <span class="savedWordExample">Example:</span> </br>
+                    {{savedWord.example}}
+                </p>
+                <p ng-if="savedWord.definitions != undefined">
+                    <div ng-repeat="definition in savedWord.definitions track by $index" ng-if="$index <= 2">{{definition}}</div>
+                    <div ng-if="savedWord.synonyms.length > 0" class="savedWordExample">Synonyms:</div>
+                    <span ng-repeat="synonym in savedWord.synonyms track by $index" ng-if="$index <= 4">{{synonym}}, </span>
+                    <div ng-if="savedWord.examples.length > 0" class="savedWordExample">Example:</div>
+                    <div ng-repeat="example in savedWord.examples track by $index" ng-if="$index <= 2">{{example}}</div>
+                </p>
+            </li>
+        </ul>
+    </div>
 </nav>
 
 <div class="w3-main" style="margin-left:200px">
-  <header class="w3-container w3-teal">
-    <span class="w3-opennav w3-xlarge w3-hide-large" onclick="left_open()">&#9776;</span>
-    <span class="title"> Words Swipe </span>
-    <span class="w3-opennav w3-xlarge w3-hide-large" style="float: right;line-height: 42px;" ng-click="loadSavedWords()">&#9733;</span>
-  </header>
+    <header class="w3-container w3-teal">
+        <span class="w3-opennav w3-xlarge w3-hide-large" ng-click="left_open()">&#9776;</span>
+        <span class="title"> Words Swipe </span>
+        <span class="w3-opennav w3-xlarge w3-hide-large" style="float: right;line-height: 42px;"
+              ng-click="loadSavedWords()">&#9733;</span>
+    </header>
 
-  <td-cards>
-    <td-card ng-repeat="card in cards" on-destroy="cardDestroyed($index)" on-swipe-left="cardSwipedLeft($index)" on-swipe-right="cardSwipedRight($index)" on-partial-swipe="cardPartialSwipe(amt)" class="card-{{$index}}">
-      <div class="no-text">IGNORE</div>
-      <div class="image">
-        <div class="content">
-          <div class="word">{{card.word}} </div>
-          <div class="definition">
-            {{card.definition}}
-            <div class="space"></div>
-            <div class="example">Example:</div>
-            {{card.example}}
-          </div>
-        </div>
-      </div>
-      <div class="yes-text">SAVE IT</div>
-      <div class="source"> <span class="sourceLabel">Source: </span> {{card.source}} </div>
-    </td-card>
-  </td-cards>
+    <td-cards>
+        <td-card ng-repeat="card in cards" on-destroy="cardDestroyed($index)" on-swipe-left="cardSwipedLeft($index)"
+                 on-swipe-right="cardSwipedRight($index)" on-partial-swipe="cardPartialSwipe(amt)"
+                 class="card-{{$index}}">
+            <div class="no-text">IGNORE</div>
+            <div class="image">
+                <div class="content">
+                    <div class="word">{{card.word}}</div>
+                    <div ng-if="card.definition != undefined" class="definition">
+                        {{card.definition}}
+                        <div class="space"></div>
+                        <div class="example">Example:</div>
+                        {{card.example}}
+                    </div>
+                    <div ng-if="card.definitions != undefined" class="definition">
+                        <div ng-repeat="definition in card.definitions track by $index" ng-if="$index <= 2">{{definition}}</div>
+                        <div ng-if="card.synonyms.length > 0" class="example">Synonyms:</div>
+                        <span ng-repeat="synonym in card.synonyms track by $index" ng-if="$index <= 4">{{synonym}}, </span>
+                        <div ng-if="card.examples.length > 0" class="example">Example:</div>
+                        <div ng-repeat="example in card.examples track by $index" ng-if="$index <= 2">{{example}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="yes-text">SAVE IT</div>
+            <div class="source"><span class="sourceLabel">Source: </span> {{card.source}}</div>
+        </td-card>
+    </td-cards>
 
 </div>
 
@@ -99,22 +140,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.6/ngStorage.min.js"></script>
 
 <script>
-
-  function left_open() {
-    document.getElementsByClassName("w3-leftsidenav")[0].style.width = "100%";
-    document.getElementsByClassName("w3-leftsidenav")[0].style.display = "block";
-  }
-  function left_close() {
-    document.getElementsByClassName("w3-leftsidenav")[0].style.display = "none";
-  }
-
-  /*function right_open($scope) {
-    document.getElementById("rightSideNav").style.width = "98%";
-    document.getElementById("rightSideNav").style.display = "block";
-  }*/
-  function right_close() {
-    document.getElementById("rightSideNav").style.display = "none";
-  }
+    function right_close() {
+        document.getElementById("rightSideNav").style.display = "none";
+    }
 </script>
 
 </body>

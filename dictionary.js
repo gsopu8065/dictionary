@@ -22,6 +22,12 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
     .controller('CardsCtrl', function ($rootScope, $scope, TDCardDelegate, CardService, $modal, $sessionStorage) {
         var fingerprint = new Fingerprint().get();
 
+        $scope.slangCheck = true;
+        $scope.verbsCheck = true;
+        $scope.emotionsCheck = true;
+        $scope.adjectivesCheck = true;
+        $scope.descriptiveCheck = true;
+
         $scope.email = $sessionStorage.email;
         if(!$scope.email){
             CardService.getEmail(fingerprint)
@@ -66,11 +72,45 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
                 })
         }
 
+        $scope.removeSavedWord = function (word) {
+            CardService.removeSavedWord($scope.email, word)
+                .success(function(res){
+                    $scope.savedWords.splice($scope.savedWords.indexOf(word), 1)
+                })
+        }
 
+        $scope.verifyCheck = function() {
+            var flag = $scope.slangCheck || $scope.verbsCheck || $scope.emotionsCheck || $scope.adjectivesCheck || $scope.descriptiveCheck;
+            if(!flag){
+                $scope.slangCheck = true
+            }
+        }
+
+
+        $scope.left_open = function() {
+            document.getElementsByClassName("w3-leftsidenav")[0].style.width = "100%";
+            document.getElementsByClassName("w3-leftsidenav")[0].style.display = "block";
+        }
+        $scope.left_close = function() {
+            document.getElementsByClassName("w3-leftsidenav")[0].style.display = "none";
+        }
+
+        var pointer = 1
         $scope.addCard = function () {
-            CardService.getWord().success(function (data) {
+
+            var indexs = []
+            if($scope.slangCheck) indexs.push(1);
+            if($scope.verbsCheck) indexs.push(2);
+            if($scope.emotionsCheck) indexs.push(3);
+            if($scope.adjectivesCheck) indexs.push(4);
+            if($scope.descriptiveCheck) indexs.push(5);
+
+            if(pointer > indexs.length) pointer = 1;
+
+            CardService.getWord(indexs[pointer - 1]).success(function (data) {
                 $scope.cards.unshift(angular.extend({}, data));
             });
+            pointer++;
         }
 
         $scope.cardSwipedLeft = function (index) {
@@ -79,7 +119,6 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
         $scope.cardSwipedRight = function (index) {
             CardService.saveWord($scope.email, $scope.cards[index])
                 .success(function(signUpRes){
-                    console.log(signUpRes)
                 })
         };
 
@@ -88,13 +127,14 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
             $scope.cards.splice(index, 1);
             $scope.addCard();
         };
+
     })
     .factory('CardService', ["$http", function ($http) {
         var CardService = {};
-        CardService.getWord = function () {
+        CardService.getWord = function (index) {
             return $http({
                 method: 'get',
-                url: 'https://dictionaryweb.herokuapp.com/random',
+                url: 'https://dictionaryweb.herokuapp.com/random?id='+index,
             });
         };
 
@@ -138,6 +178,17 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
             return $http({
                 method: 'get',
                 url: 'https://dictionaryweb.herokuapp.com/getSavedWords?email=' + email,
+            });
+        };
+
+        CardService.removeSavedWord = function (email, word) {
+            return $http({
+                method: 'post',
+                url: 'https://dictionaryweb.herokuapp.com/removeWord',
+                data: {
+                    email: email,
+                    word: word
+                }
             });
         };
 
