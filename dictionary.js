@@ -1,6 +1,6 @@
-angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstrap', 'ngStorage'])
+angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstrap', 'ngStorage', 'ngSanitize'])
 
-    .run(function($rootScope, $q, CardService){
+    .run(function ($rootScope, $q, CardService) {
         $rootScope.cards = []
         CardService.getWords().success(function (data) {
             $rootScope.cards = data
@@ -19,7 +19,7 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
         }
     })
 
-    .controller('CardsCtrl', function ($rootScope, $scope, TDCardDelegate, CardService, $modal, $sessionStorage) {
+    .controller('CardsCtrl', function ($rootScope, $scope, TDCardDelegate, CardService, $modal, $sessionStorage, $sce) {
         var fingerprint = new Fingerprint().get();
 
         $scope.slangCheck = true;
@@ -29,14 +29,15 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
         $scope.descriptiveCheck = true;
 
         $scope.email = $sessionStorage.email;
-        if(!$scope.email){
+        if (!$scope.email) {
             CardService.getEmail(fingerprint)
-                .success(function(data){
-                    if(data.length > 0 ){
+                .success(function (data) {
+                    if (data.length > 0) {
                         $scope.email = data[0].email;
                         $sessionStorage.email = data[0].email;
+                        unbindHandler();
                     }
-                    else{
+                    else {
                         $modal.open({
                             templateUrl: 'popup/popup.html',
                             controller: function ($scope, $modalInstance) {
@@ -48,8 +49,9 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
                             $scope.email = result;
                             $sessionStorage.email = $scope.email;
                             CardService.signUp(fingerprint, result)
-                                .success(function(signUpRes){
+                                .success(function (signUpRes) {
                                     console.log(signUpRes)
+                                    unbindHandler();
                                 })
                         });
                     }
@@ -60,38 +62,37 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
 
         var unbindHandler = $rootScope.$on('jack', function () {
             $scope.cards = $rootScope.cards
-            unbindHandler();
         });
 
         $scope.loadSavedWords = function () {
             document.getElementById("rightSideNav").style.width = "100%";
             document.getElementById("rightSideNav").style.display = "block";
             CardService.getSavedWords($scope.email)
-                .success(function(res){
+                .success(function (res) {
                     $scope.savedWords = res.words
                 })
         }
 
         $scope.removeSavedWord = function (word) {
             CardService.removeSavedWord($scope.email, word)
-                .success(function(res){
+                .success(function (res) {
                     $scope.savedWords.splice($scope.savedWords.indexOf(word), 1)
                 })
         }
 
-        $scope.verifyCheck = function() {
+        $scope.verifyCheck = function () {
             var flag = $scope.slangCheck || $scope.verbsCheck || $scope.emotionsCheck || $scope.adjectivesCheck || $scope.descriptiveCheck;
-            if(!flag){
+            if (!flag) {
                 $scope.slangCheck = true
             }
         }
 
 
-        $scope.left_open = function() {
+        $scope.left_open = function () {
             document.getElementsByClassName("w3-leftsidenav")[0].style.width = "100%";
             document.getElementsByClassName("w3-leftsidenav")[0].style.display = "block";
         }
-        $scope.left_close = function() {
+        $scope.left_close = function () {
             document.getElementsByClassName("w3-leftsidenav")[0].style.display = "none";
         }
 
@@ -99,13 +100,13 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
         $scope.addCard = function () {
 
             var indexs = []
-            if($scope.slangCheck) indexs.push(1);
-            if($scope.verbsCheck) indexs.push(2);
-            if($scope.emotionsCheck) indexs.push(3);
-            if($scope.adjectivesCheck) indexs.push(4);
-            if($scope.descriptiveCheck) indexs.push(5);
+            if ($scope.slangCheck) indexs.push(1);
+            if ($scope.verbsCheck) indexs.push(2);
+            if ($scope.emotionsCheck) indexs.push(3);
+            if ($scope.adjectivesCheck) indexs.push(4);
+            if ($scope.descriptiveCheck) indexs.push(5);
 
-            if(pointer > indexs.length) pointer = 1;
+            if (pointer > indexs.length) pointer = 1;
 
             CardService.getWord(indexs[pointer - 1]).success(function (data) {
                 $scope.cards.unshift(angular.extend({}, data));
@@ -118,7 +119,7 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
         };
         $scope.cardSwipedRight = function (index) {
             CardService.saveWord($scope.email, $scope.cards[index])
-                .success(function(signUpRes){
+                .success(function (signUpRes) {
                 })
         };
 
@@ -134,7 +135,7 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
         CardService.getWord = function (index) {
             return $http({
                 method: 'get',
-                url: 'https://dictionaryweb.herokuapp.com/random?id='+index,
+                url: 'https://dictionaryweb.herokuapp.com/random?id=' + index,
             });
         };
 
@@ -157,7 +158,7 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
                 method: 'post',
                 url: 'https://dictionaryweb.herokuapp.com/signup',
                 data: {
-                    _id: deviceId+"",
+                    _id: deviceId + "",
                     email: email
                 }
             });
