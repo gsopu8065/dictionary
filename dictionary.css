@@ -228,7 +228,7 @@ input[type="checkbox"].ios-switch:checked + div > div {
     height: 100%;
     width: 90%;
     display:block;
-    webkit-overflow-scrolling:touch;
+    /*webkit-overflow-scrolling:touch;*/
 }
 
 ul {

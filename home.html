@@ -120,7 +120,7 @@
                         <div ng-if="card.synonyms.length > 0" class="example">Synonyms:</div>
                         <span ng-repeat="synonym in card.synonyms track by $index" ng-if="$index <= 4">{{synonym}}, </span>
                         <div ng-if="card.examples.length > 0" class="example">Example:</div>
-                        <div ng-repeat="example in card.examples track by $index" ng-if="$index <= 2">{{example}}</div>
+                        <div ng-repeat="example in card.examples track by $index" ng-if="$index <= 1">{{example}}</div>
                     </div>
                 </div>
             </div>
