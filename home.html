@@ -104,8 +104,6 @@
               ng-click="loadSavedWords()">&#9733;</span>
     </header>
 
-    <div class="loader" ng-show="loading">Loading...</div>
-    <div ng-show="!loading">
         <td-cards>
             <td-card ng-repeat="card in cards" on-destroy="cardDestroyed($index)" on-swipe-left="cardSwipedLeft($index)"
                      on-swipe-right="cardSwipedRight($index)" on-partial-swipe="cardPartialSwipe(amt)"
@@ -137,7 +135,6 @@
                 <div class="source"><span class="sourceLabel">Source: </span> {{card.source}}</div>
             </td-card>
         </td-cards>
-    </div>
 </div>
 
 <script src="w3/collide.js"></script>
