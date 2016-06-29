@@ -1,5 +1,5 @@
 .modal.fade.in{
-    height: 230px;
+    min-height: 0px;
     position: relative;
     left: 0px;
 }
@@ -22,4 +22,18 @@
 .btn-primary[disabled]{
     color: #333333;
     background-color: #e6e6e6;
+}
+
+.redIgnore{
+    color: red;
+}
+
+.greenSave{
+    color: green;
+}
+
+.centerPage{
+    margin:auto;
+    display:block;
+    margin-top: 20px;
 }

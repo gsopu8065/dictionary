@@ -25,6 +25,7 @@
     </div>
 
     <div class="sidenavHeader">Categories</div>
+    <div class="smallLabel">Please choose atleast one category</div>
     <div class="categories">
         <label><input type="checkbox" ng-model="slangCheck" ng-change="verifyCheck()" class="ios-switch green"/>
             <div>
@@ -82,11 +83,13 @@
                     {{savedWord.example}}
                 </p>
                 <p ng-if="savedWord.definitions != undefined">
-                    <div ng-repeat="definition in savedWord.definitions track by $index" ng-if="$index <= 2">{{definition}}</div>
-                    <div ng-if="savedWord.synonyms.length > 0" class="savedWordExample">Synonyms:</div>
-                    <span ng-repeat="synonym in savedWord.synonyms track by $index" ng-if="$index <= 4">{{synonym}}, </span>
-                    <div ng-if="savedWord.examples.length > 0" class="savedWordExample">Example:</div>
-                    <div ng-repeat="example in savedWord.examples track by $index" ng-if="$index <= 2">{{example}}</div>
+                <div ng-repeat="definition in savedWord.definitions track by $index" ng-if="$index <= 2">
+                    {{definition}}
+                </div>
+                <div ng-if="savedWord.synonyms.length > 0" class="savedWordExample">Synonyms:</div>
+                <span ng-repeat="synonym in savedWord.synonyms track by $index" ng-if="$index <= 4">{{synonym}}, </span>
+                <div ng-if="savedWord.examples.length > 0" class="savedWordExample">Example:</div>
+                <div ng-repeat="example in savedWord.examples track by $index" ng-if="$index <= 2">{{example}}</div>
                 </p>
             </li>
         </ul>
@@ -101,34 +104,40 @@
               ng-click="loadSavedWords()">&#9733;</span>
     </header>
 
-    <td-cards>
-        <td-card ng-repeat="card in cards" on-destroy="cardDestroyed($index)" on-swipe-left="cardSwipedLeft($index)"
-                 on-swipe-right="cardSwipedRight($index)" on-partial-swipe="cardPartialSwipe(amt)"
-                 class="card-{{$index}}">
-            <div class="no-text">IGNORE</div>
-            <div class="image">
-                <div class="content">
-                    <div class="word">{{card.word}}</div>
-                    <div ng-if="card.definition != undefined" class="definition">
-                        {{card.definition}}
-                        <div class="space"></div>
-                        <div class="example">Example:</div>
-                        {{card.example}}
-                    </div>
-                    <div ng-if="card.definitions != undefined" class="definition">
-                        <div ng-repeat="definition in card.definitions track by $index" ng-if="$index <= 1">{{definition}}</div>
-                        <div ng-if="card.synonyms.length > 0" class="example">Synonyms:</div>
-                        <span ng-repeat="synonym in card.synonyms track by $index" ng-if="$index <= 4">{{synonym}}, </span>
-                        <div ng-if="card.examples.length > 0" class="example">Example:</div>
-                        <div ng-repeat="example in card.examples track by $index" ng-if="$index <= 1">{{example}}</div>
+    <div class="loader" ng-show="loading">Loading...</div>
+    <div ng-show="!loading">
+        <td-cards>
+            <td-card ng-repeat="card in cards" on-destroy="cardDestroyed($index)" on-swipe-left="cardSwipedLeft($index)"
+                     on-swipe-right="cardSwipedRight($index)" on-partial-swipe="cardPartialSwipe(amt)"
+                     class="card-{{$index}}">
+                <div class="no-text">IGNORE</div>
+                <div class="image">
+                    <div class="content">
+                        <div class="word">{{card.word}}</div>
+                        <div ng-if="card.definition != undefined" class="definition">
+                            {{card.definition}}
+                            <div class="space"></div>
+                            <div class="example">Example:</div>
+                            {{card.example}}
+                        </div>
+                        <div ng-if="card.definitions != undefined" class="definition">
+                            <div ng-repeat="definition in card.definitions track by $index" ng-if="$index <= 1">
+                                {{definition}}
+                            </div>
+                            <div ng-if="card.synonyms.length > 0" class="example">Synonyms:</div>
+                            <span ng-repeat="synonym in card.synonyms track by $index"
+                                  ng-if="$index <= 4">{{synonym}}, </span>
+                            <div ng-if="card.examples.length > 0" class="example">Example:</div>
+                            <div ng-repeat="example in card.examples track by $index" ng-if="$index <= 1">{{example}}
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="yes-text">SAVE IT</div>
-            <div class="source"><span class="sourceLabel">Source: </span> {{card.source}}</div>
-        </td-card>
-    </td-cards>
-
+                <div class="yes-text">SAVE</div>
+                <div class="source"><span class="sourceLabel">Source: </span> {{card.source}}</div>
+            </td-card>
+        </td-cards>
+    </div>
 </div>
 
 <script src="w3/collide.js"></script>

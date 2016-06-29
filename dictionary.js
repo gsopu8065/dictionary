@@ -2,8 +2,10 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
 
     .run(function ($rootScope, $q, CardService) {
         $rootScope.cards = []
+        $rootScope.loading = true;
         CardService.getWords().success(function (data) {
             $rootScope.cards = data
+            $rootScope.loading = false;
             $rootScope.$emit('jack');
         });
     })
@@ -51,6 +53,14 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
                             CardService.signUp(fingerprint, result)
                                 .success(function (signUpRes) {
                                     console.log(signUpRes)
+                                    $modal.open({
+                                        templateUrl: 'popup/sucess.html',
+                                        controller: function ($scope, $modalInstance) {
+                                            $scope.ok = function () {
+                                                $modalInstance.close();
+                                            };
+                                        }
+                                    })
                                     unbindHandler();
                                 })
                         });

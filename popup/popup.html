@@ -15,6 +15,7 @@
 					<input type="email" name="email" class="emailInput" ng-model="email" placeholder="Email" required/>
 					<button class="btn btn-primary" ng-disabled="myform.$invalid" ng-click="ok(email)">OK</button>
 				</div>
+				<div ng-show="myform.$invalid" style="color: #d83f3f;padding-top: 20px;"> *Email ID is Invalid</div>
 			</div>
 		</form>
 	</div>
