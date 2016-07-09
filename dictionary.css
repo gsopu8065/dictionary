@@ -235,6 +235,7 @@ input[type="checkbox"].ios-switch:checked + div > div {
     width: 90%;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
+    -webkit-transform: translate3d(0,0,0);
 }
 
 ul {
