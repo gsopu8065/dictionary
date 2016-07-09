@@ -163,6 +163,7 @@ td-card .content .definition .example{
     color: #fafafa;
     text-align: center;
     background: #009688;
+    margin-top: 5px;
 }
 
 .checkBoxLabel{

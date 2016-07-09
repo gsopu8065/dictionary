@@ -10,29 +10,27 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
         });
     })
 
-    .directive('noScroll', function ($document) {
-        return {
-            restrict: 'A',
-            link: function ($scope, $element, $attr) {
-                $document.on('touchmove', function (e) {
-                    e.preventDefault();
-                });
-            }
-        }
-    })
+    /*.directive('noScroll', function ($document) {
+     return {
+     restrict: 'A',
+     link: function ($scope, $element, $attr) {
+     $document.on('touchmove', function (e) {
+     e.preventDefault();
+     });
+     }
+     }
+     })*/
 
     .controller('CardsCtrl', function ($rootScope, $scope, TDCardDelegate, CardService, $modal, $sessionStorage) {
         var fingerprint = new Fingerprint().get();
 
-        if($sessionStorage.slangCheck == undefined) {
-            console.log($sessionStorage.slangCheck)
+        if ($sessionStorage.slangCheck == undefined) {
             $sessionStorage.slangCheck = true
-            console.log($sessionStorage.slangCheck)
         }
-        if($sessionStorage.verbsCheck == undefined) $sessionStorage.verbsCheck = false
-        if($sessionStorage.emotionsCheck == undefined) $sessionStorage.emotionsCheck = false
-        if($sessionStorage.adjectivesCheck == undefined) $sessionStorage.adjectivesCheck = false
-        if($sessionStorage.descriptiveCheck == undefined) $sessionStorage.descriptiveCheck = false
+        if ($sessionStorage.verbsCheck == undefined) $sessionStorage.verbsCheck = false
+        if ($sessionStorage.emotionsCheck == undefined) $sessionStorage.emotionsCheck = false
+        if ($sessionStorage.adjectivesCheck == undefined) $sessionStorage.adjectivesCheck = false
+        if ($sessionStorage.descriptiveCheck == undefined) $sessionStorage.descriptiveCheck = false
 
         $scope.slangCheck = $sessionStorage.slangCheck
         $scope.verbsCheck = $sessionStorage.verbsCheck;
@@ -40,45 +38,52 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
         $scope.adjectivesCheck = $sessionStorage.adjectivesCheck;
         $scope.descriptiveCheck = $sessionStorage.descriptiveCheck;
 
-        $scope.email = $sessionStorage.email;
-        if (!$scope.email) {
-            CardService.getEmail(fingerprint)
-                .success(function (data) {
-                    if (data.length > 0) {
-                        $scope.email = data[0].email;
-                        $sessionStorage.email = data[0].email;
-                        unbindHandler();
-                    }
-                    else {
+        if ($sessionStorage.deviceId == undefined) {
+            /*$modal.open({
+                templateUrl: 'popup/popup.html',
+                controller: function ($scope, $modalInstance) {
+                    $scope.ok = function (email, password) {
+                        $modalInstance.close(email, password);
+                    };
+                    $scope.cancel = function () {
+                        $modalInstance.close(undefined, undefined);
+                    };
+                }
+            }).result.then(function (email, password) {
+                $sessionStorage.deviceId = fingerprint;
+                if (email != undefined) {
+                    $scope.email = email;
+                    $sessionStorage.email = $scope.email;
+                }
+
+                CardService.createOrUpdateProfile(fingerprint, email, password)
+                    .success(function (signUpRes) {
                         $modal.open({
-                            templateUrl: 'popup/popup.html',
+                            templateUrl: 'popup/sucess.html',
                             controller: function ($scope, $modalInstance) {
-                                $scope.ok = function (email) {
-                                    $modalInstance.close(email);
+                                $scope.ok = function () {
+                                    $modalInstance.close();
                                 };
                             }
-                        }).result.then(function (result) {
-                            $scope.email = result;
-                            $sessionStorage.email = $scope.email;
-                            CardService.signUp(fingerprint, result)
-                                .success(function (signUpRes) {
-                                    console.log(signUpRes)
-                                    $modal.open({
-                                        templateUrl: 'popup/sucess.html',
-                                        controller: function ($scope, $modalInstance) {
-                                            $scope.ok = function () {
-                                                $modalInstance.close();
-                                            };
-                                        }
-                                    })
-                                    unbindHandler();
-                                })
-                        });
-                    }
+                        })
+                        unbindHandler();
+                    })
 
+            });*/
+            $sessionStorage.deviceId = fingerprint;
+            CardService.createProfile(fingerprint)
+                .success(function (signUpRes) {
+                    $modal.open({
+                        templateUrl: 'popup/sucess.html',
+                        controller: function ($scope, $modalInstance) {
+                            $scope.ok = function () {
+                                $modalInstance.close();
+                            };
+                        }
+                    })
+                    unbindHandler();
                 })
         }
-
 
         var unbindHandler = $rootScope.$on('jack', function () {
             $scope.cards = $rootScope.cards
@@ -87,14 +92,14 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
         $scope.loadSavedWords = function () {
             document.getElementById("rightSideNav").style.width = "100%";
             document.getElementById("rightSideNav").style.display = "block";
-            CardService.getSavedWords($scope.email)
+            CardService.getSavedWords($sessionStorage.deviceId)
                 .success(function (res) {
                     $scope.savedWords = res.words
                 })
         }
 
         $scope.removeSavedWord = function (word) {
-            CardService.removeSavedWord($scope.email, word)
+            CardService.removeSavedWord($sessionStorage.deviceId, word)
                 .success(function (res) {
                     $scope.savedWords.splice($scope.savedWords.indexOf(word), 1)
                 })
@@ -144,7 +149,7 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
             console.log('LEFT SWIPE');
         };
         $scope.cardSwipedRight = function (index) {
-            CardService.saveWord($scope.email, $scope.cards[index])
+            CardService.saveWord($sessionStorage.deviceId, $scope.cards[index])
                 .success(function (signUpRes) {
                 })
         };
@@ -172,48 +177,47 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
             });
         };
 
-        CardService.getEmail = function (deviceId) {
+        /*CardService.getEmail = function (deviceId) {
             return $http({
                 method: 'get',
                 url: 'https://dictionaryweb.herokuapp.com/getEmail?deviceId=' + deviceId,
             });
-        };
+        };*/
 
-        CardService.signUp = function (deviceId, email) {
+        CardService.createProfile = function (deviceId) {
             return $http({
                 method: 'post',
                 url: 'https://dictionaryweb.herokuapp.com/signup',
                 data: {
-                    _id: deviceId + "",
-                    email: email
+                    _id: deviceId + ""
                 }
             });
         };
 
-        CardService.saveWord = function (email, word) {
+        CardService.saveWord = function (deviceId, word) {
             return $http({
                 method: 'post',
                 url: 'https://dictionaryweb.herokuapp.com/saveWord',
                 data: {
-                    email: email,
+                    _id: deviceId + "",
                     word: [word]
                 }
             });
         };
 
-        CardService.getSavedWords = function (email) {
+        CardService.getSavedWords = function (deviceId) {
             return $http({
                 method: 'get',
-                url: 'https://dictionaryweb.herokuapp.com/getSavedWords?email=' + email,
+                url: 'https://dictionaryweb.herokuapp.com/getSavedWords?deviceId=' + deviceId,
             });
         };
 
-        CardService.removeSavedWord = function (email, word) {
+        CardService.removeSavedWord = function (deviceId, word) {
             return $http({
                 method: 'post',
                 url: 'https://dictionaryweb.herokuapp.com/removeWord',
                 data: {
-                    email: email,
+                    _id: deviceId + "",
                     word: word
                 }
             });
