@@ -293,13 +293,21 @@ li:nth-child(even) {
 
 .closeButton{
     position: absolute;
-    right: 20px;
+    right: 13px;
     font-weight: 900;
-    margin-top: -5px;
-    margin-left: 15px;
-    margin-bottom: 10px;
-    font-size: 22px;
-    margin-right: 5px;
+    font-size: 14px;
+    background-color: teal;
+    color: white;
+    margin-top: -1px;
+}
+
+.numberCircle {
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    background: teal;
+    color: white;
+    text-align: center;
 }
 
 .smallLabel{

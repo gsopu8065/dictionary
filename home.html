@@ -75,7 +75,7 @@
     <div class="savedList">
         <ul>
             <li ng-repeat="savedWord in savedWords | filter:search">
-                <span ng-click="removeSavedWord(savedWord)" class="closeButton">&#9747</span>
+                <span ng-click="removeSavedWord(savedWord)" class="closeButton numberCircle">&#9747</span>
                 <div class="savedWord">{{savedWord.word}}</div>
                 <p ng-if="savedWord.definition != undefined">
                     {{savedWord.definition}} <br/>
