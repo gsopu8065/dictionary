@@ -21,14 +21,24 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
         }
     })
 
-    .controller('CardsCtrl', function ($rootScope, $scope, TDCardDelegate, CardService, $modal, $sessionStorage, $sce) {
+    .controller('CardsCtrl', function ($rootScope, $scope, TDCardDelegate, CardService, $modal, $sessionStorage) {
         var fingerprint = new Fingerprint().get();
 
-        $scope.slangCheck = true;
-        $scope.verbsCheck = true;
-        $scope.emotionsCheck = true;
-        $scope.adjectivesCheck = true;
-        $scope.descriptiveCheck = true;
+        if($sessionStorage.slangCheck == undefined) {
+            console.log($sessionStorage.slangCheck)
+            $sessionStorage.slangCheck = true
+            console.log($sessionStorage.slangCheck)
+        }
+        if($sessionStorage.verbsCheck == undefined) $sessionStorage.verbsCheck = false
+        if($sessionStorage.emotionsCheck == undefined) $sessionStorage.emotionsCheck = false
+        if($sessionStorage.adjectivesCheck == undefined) $sessionStorage.adjectivesCheck = false
+        if($sessionStorage.descriptiveCheck == undefined) $sessionStorage.descriptiveCheck = false
+
+        $scope.slangCheck = $sessionStorage.slangCheck
+        $scope.verbsCheck = $sessionStorage.verbsCheck;
+        $scope.emotionsCheck = $sessionStorage.emotionsCheck;
+        $scope.adjectivesCheck = $sessionStorage.adjectivesCheck;
+        $scope.descriptiveCheck = $sessionStorage.descriptiveCheck;
 
         $scope.email = $sessionStorage.email;
         if (!$scope.email) {
@@ -95,6 +105,12 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
             if (!flag) {
                 $scope.slangCheck = true
             }
+
+            $sessionStorage.slangCheck = $scope.slangCheck
+            $sessionStorage.verbsCheck = $scope.verbsCheck
+            $sessionStorage.emotionsCheck = $scope.emotionsCheck
+            $sessionStorage.adjectivesCheck = $scope.adjectivesCheck
+            $sessionStorage.descriptiveCheck = $scope.descriptiveCheck
         }
 
 
