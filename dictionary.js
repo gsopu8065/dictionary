@@ -10,16 +10,16 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
         });
     })
 
-    /*.directive('noScroll', function ($document) {
-     return {
-     restrict: 'A',
-     link: function ($scope, $element, $attr) {
-     $document.on('touchmove', function (e) {
-     e.preventDefault();
-     });
-     }
-     }
-     })*/
+    .directive('noScroll', function ($document) {
+        return {
+            restrict: 'A',
+            link: function ($scope, $element, $attr) {
+                $document.on('touchmove', function (e) {
+                    e.preventDefault();
+                });
+            }
+        }
+    })
 
     .controller('CardsCtrl', function ($rootScope, $scope, TDCardDelegate, CardService, $modal, $sessionStorage) {
         var fingerprint = new Fingerprint().get();
@@ -40,36 +40,36 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
 
         if ($sessionStorage.deviceId == undefined) {
             /*$modal.open({
-                templateUrl: 'popup/popup.html',
-                controller: function ($scope, $modalInstance) {
-                    $scope.ok = function (email, password) {
-                        $modalInstance.close(email, password);
-                    };
-                    $scope.cancel = function () {
-                        $modalInstance.close(undefined, undefined);
-                    };
-                }
-            }).result.then(function (email, password) {
-                $sessionStorage.deviceId = fingerprint;
-                if (email != undefined) {
-                    $scope.email = email;
-                    $sessionStorage.email = $scope.email;
-                }
+             templateUrl: 'popup/popup.html',
+             controller: function ($scope, $modalInstance) {
+             $scope.ok = function (email, password) {
+             $modalInstance.close(email, password);
+             };
+             $scope.cancel = function () {
+             $modalInstance.close(undefined, undefined);
+             };
+             }
+             }).result.then(function (email, password) {
+             $sessionStorage.deviceId = fingerprint;
+             if (email != undefined) {
+             $scope.email = email;
+             $sessionStorage.email = $scope.email;
+             }
 
-                CardService.createOrUpdateProfile(fingerprint, email, password)
-                    .success(function (signUpRes) {
-                        $modal.open({
-                            templateUrl: 'popup/sucess.html',
-                            controller: function ($scope, $modalInstance) {
-                                $scope.ok = function () {
-                                    $modalInstance.close();
-                                };
-                            }
-                        })
-                        unbindHandler();
-                    })
+             CardService.createOrUpdateProfile(fingerprint, email, password)
+             .success(function (signUpRes) {
+             $modal.open({
+             templateUrl: 'popup/sucess.html',
+             controller: function ($scope, $modalInstance) {
+             $scope.ok = function () {
+             $modalInstance.close();
+             };
+             }
+             })
+             unbindHandler();
+             })
 
-            });*/
+             });*/
             $sessionStorage.deviceId = fingerprint;
             CardService.createProfile(fingerprint)
                 .success(function (signUpRes) {
@@ -178,11 +178,11 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
         };
 
         /*CardService.getEmail = function (deviceId) {
-            return $http({
-                method: 'get',
-                url: 'https://dictionaryweb.herokuapp.com/getEmail?deviceId=' + deviceId,
-            });
-        };*/
+         return $http({
+         method: 'get',
+         url: 'https://dictionaryweb.herokuapp.com/getEmail?deviceId=' + deviceId,
+         });
+         };*/
 
         CardService.createProfile = function (deviceId) {
             return $http({
