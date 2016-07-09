@@ -230,8 +230,8 @@ input[type="checkbox"].ios-switch:checked + div > div {
 
 .savedList {
     margin: 20px;
-    /*position: fixed;
-    overflow: auto;*/
+    /*position: fixed;*/
+    overflow: auto;
     height: 100%;
     width: 90%;
     display:block;
@@ -292,7 +292,7 @@ li:nth-child(even) {
 
 
 .closeButton{
-    position: absolute;
+    /*position: absolute;*/
     right: 13px;
     font-weight: 900;
     font-size: 14px;
