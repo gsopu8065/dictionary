@@ -231,7 +231,7 @@ input[type="checkbox"].ios-switch:checked + div > div {
 .savedList {
     margin: 20px;
     position: fixed;
-    height: 100%;
+    height: calc(100% + 1px);
     width: 90%;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
