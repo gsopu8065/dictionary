@@ -10,17 +10,6 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
         });
     })
 
-    .directive('noScroll', function ($document) {
-        return {
-            restrict: 'A',
-            link: function ($scope, $element, $attr) {
-                $document.on('touchmove', function (e) {
-                    e.preventDefault();
-                });
-            }
-        }
-    })
-
     .controller('CardsCtrl', function ($rootScope, $scope, TDCardDelegate, CardService, $modal, $sessionStorage) {
         var fingerprint = new Fingerprint().get();
 
