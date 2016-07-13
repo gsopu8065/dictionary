@@ -229,11 +229,11 @@ input[type="checkbox"].ios-switch:checked + div > div {
     font-size: inherit;}
 
 .savedList {
-    margin: 20px;
+    margin: 20px auto;
     position: fixed;
-    height: calc(100% + 1px);
+    height: 100%;
     width: 90%;
-    overflow-y: scroll;
+    overflow-y: auto;
     -webkit-overflow-scrolling: touch;
 }
 
