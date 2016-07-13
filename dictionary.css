@@ -295,7 +295,7 @@ li:nth-child(even) {
 
 
 .closeButton{
-    /*position: absolute;*/
+    position: absolute;
     right: 13px;
     font-weight: 900;
     font-size: 14px;
