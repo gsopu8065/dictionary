@@ -120,7 +120,7 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
         $scope.addCard = function () {
 
             var indexs = []
-            if ($scope.slangCheck) indexs.push(1);
+            if ($scope.slangCheck) indexs.push(2);
             if ($scope.verbsCheck) indexs.push(2);
             if ($scope.emotionsCheck) indexs.push(3);
             if ($scope.adjectivesCheck) indexs.push(4);
