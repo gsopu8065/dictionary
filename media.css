@@ -1,0 +1,55 @@
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 480px)
+and (-webkit-min-device-pixel-ratio: 2) {
+    /* iPhone 4/ 4s  */
+    td-card .content .word {
+        font-size: x-large;
+        color: red;
+    }
+
+    td-card .content .definition {
+        font-size: 16px;
+    }
+
+    .source {
+        font-size: 14px;
+    }
+
+    .yes-text {
+        font-size: 30px;
+    }
+
+    .no-text {
+        font-size: 30px;
+    }
+
+    .w3-closenav{
+        font-size: 26px;
+    }
+
+    .title{
+        font-size: 25px;
+        font-size: 25px;
+    }
+
+    .savedList *{
+        font-size: medium;
+    }
+
+    .closeButton {
+        font-size: 14px;
+    }
+}
+
+@media only screen
+and (min-device-width: 320px)
+and (max-device-width: 568px)
+and (-webkit-min-device-pixel-ratio: 2) {
+
+    /* iPhone 5  */
+    td-card .content .word {
+        font-size: x-large;
+        color: green;
+    }
+}

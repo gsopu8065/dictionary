@@ -225,8 +225,11 @@ input[type="checkbox"].ios-switch:checked + div > div {
 }
 
 /* saved list*/
-.savedList *{margin: 0; padding: 0;
-    font-size: inherit;}
+.savedList *{
+    margin: 0;
+    padding: 0;
+    font-size: medium;
+}
 
 .savedList {
     margin: 20px auto;
