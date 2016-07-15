@@ -1,27 +1,27 @@
-@media only screen
-and (min-device-width : 320px)
-and (max-device-width : 480px)
+@media screen
+and (min-device-height: 481px)
+and (max-device-height: 568px)
 and (-webkit-min-device-pixel-ratio: 2) {
-    /* iPhone 4/ 4s  */
+
+    /* iPhone 5  */
     td-card .content .word {
-        font-size: x-large;
-        color: red;
+        font-size: larger;
     }
 
     td-card .content .definition {
-        font-size: 16px;
-    }
-
-    .source {
         font-size: 14px;
     }
 
+    .source {
+        font-size: 13px;
+    }
+
     .yes-text {
-        font-size: 30px;
+        font-size: 28px;
     }
 
     .no-text {
-        font-size: 30px;
+        font-size: 28px;
     }
 
     .w3-closenav{
@@ -30,26 +30,65 @@ and (-webkit-min-device-pixel-ratio: 2) {
 
     .title{
         font-size: 25px;
+    }
+
+    .savedList *{
+        font-size: small;
+    }
+
+    .closeButton {
+        font-size: 11px;
+    }
+
+    .numberCircle {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+@media screen
+and (max-device-height : 480px)
+and (-webkit-min-device-pixel-ratio: 2) {
+    /* iPhone 4/ 4s  */
+    td-card .content .word {
+        font-size: larger;
+    }
+
+    td-card .content .definition {
+        font-size: 13px;
+    }
+
+    .source {
+        font-size: 12px;
+    }
+
+    .yes-text {
+        font-size: 24px;
+    }
+
+    .no-text {
+        font-size: 24px;
+    }
+
+    .w3-closenav{
+        font-size: 26px;
+    }
+
+    .title {
         font-size: 25px;
     }
 
     .savedList *{
-        font-size: medium;
+        font-size: small;
     }
 
     .closeButton {
-        font-size: 14px;
+        font-size: 11px;
+    }
+
+    .numberCircle {
+        width: 16px;
+        height: 16px;
     }
 }
 
-@media only screen
-and (min-device-width: 320px)
-and (max-device-width: 568px)
-and (-webkit-min-device-pixel-ratio: 2) {
-
-    /* iPhone 5  */
-    td-card .content .word {
-        font-size: x-large;
-        color: green;
-    }
-}
