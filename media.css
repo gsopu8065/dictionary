@@ -29,7 +29,7 @@ and (-webkit-min-device-pixel-ratio: 2) {
     }
 
     .title{
-        font-size: 25px;
+        font-size: 23px;
     }
 
     .savedList *{
@@ -43,6 +43,14 @@ and (-webkit-min-device-pixel-ratio: 2) {
     .numberCircle {
         width: 16px;
         height: 16px;
+    }
+
+    .w3-xlarge {
+        font-size: 22px !important;
+    }
+
+    .w3-teal{
+        line-height: 40px;
     }
 }
 
@@ -93,6 +101,9 @@ and (-webkit-min-device-pixel-ratio: 2) {
 
     .w3-xlarge {
         font-size: 20px !important;
+    }
+
+    .w3-teal{
         line-height: 33px;
     }
 }
