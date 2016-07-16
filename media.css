@@ -6,7 +6,6 @@ and (-webkit-min-device-pixel-ratio: 2) {
     /* iPhone 5  */
     td-card .content .word {
         font-size: larger;
-        color: green;
     }
 
     td-card .content .definition {
@@ -53,7 +52,6 @@ and (-webkit-min-device-pixel-ratio: 2) {
     /* iPhone 4/ 4s  */
     td-card .content .word {
         font-size: larger;
-        color: red;
     }
 
     td-card .content .definition {
@@ -77,7 +75,7 @@ and (-webkit-min-device-pixel-ratio: 2) {
     }
 
     .title {
-        font-size: 25px;
+        font-size: 21px;
     }
 
     .savedList *{
@@ -91,6 +89,11 @@ and (-webkit-min-device-pixel-ratio: 2) {
     .numberCircle {
         width: 16px;
         height: 16px;
+    }
+
+    .w3-xlarge {
+        font-size: 20px !important;
+        line-height: 33px;
     }
 }
 
