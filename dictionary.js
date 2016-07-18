@@ -3,8 +3,8 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
     .run(function ($rootScope, CardService) {
         $rootScope.cards = []
 
+        $rootScope.loading = true
         CardService.getWords().success(function (data) {
-            console.log("A")
             $rootScope.$emit('jackEvent', data);
         });
 
@@ -22,7 +22,8 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
 
     })
 
-    .controller('CardsCtrl', function ($rootScope, $scope, TDCardDelegate, CardService, $modal, $sessionStorage, $window) {
+    .controller('CardsCtrl', function ($rootScope, $scope, TDCardDelegate, CardService, $modal, $sessionStorage, $timeout, $window) {
+
 
         if ($sessionStorage.slangCheck == undefined) {
             $sessionStorage.slangCheck = true
@@ -59,7 +60,7 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
             })
 
         $rootScope.$on('jackEvent', function (event, data) {
-            console.log("B")
+            $rootScope.loading = false
             $scope.cards = data
         });
 

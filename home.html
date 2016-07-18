@@ -6,6 +6,7 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <link rel="stylesheet" href="w3/ionic.tdcards.css">
     <link rel="stylesheet" href="dictionary.css">
+    <link rel="stylesheet" href="loading.css">
     <link href="w3/ionic.css" rel="stylesheet">
     <link rel="stylesheet" href="w3/w3.css">
     <link rel="stylesheet" href="w3/angular-material.min.css">
@@ -111,7 +112,12 @@
                      class="card-{{$index}}">
                 <div class="no-text">IGNORE</div>
                 <div class="image">
-                    <div class="content">
+                    <div ng-show="loading" class="cssload-loader">
+                        <div class="cssload-inner cssload-one"></div>
+                        <div class="cssload-inner cssload-two"></div>
+                        <div class="cssload-inner cssload-three"></div>
+                    </div>
+                    <div ng-show="!loading" class="content">
                         <div class="word">{{card.word}}</div>
                         <div ng-if="card.definition != undefined" class="definition">
                             {{card.definition}}
@@ -133,7 +139,7 @@
                     </div>
                 </div>
                 <div class="yes-text">SAVE</div>
-                <div class="source"><span class="sourceLabel">Source: </span> {{card.source}}</div>
+                <div ng-show="!loading" class="source"><span class="sourceLabel">Source: </span> {{card.source}}</div>
             </td-card>
         </td-cards>
 </div>
