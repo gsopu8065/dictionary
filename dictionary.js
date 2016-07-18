@@ -1,19 +1,17 @@
 angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstrap', 'ngStorage', 'ngSanitize'])
 
-    .run(function ($rootScope, $q, CardService) {
+    .run(function ($rootScope, CardService) {
         $rootScope.cards = []
-        $rootScope.loading = true;
+
         CardService.getWords().success(function (data) {
-            $rootScope.cards = data
-            $rootScope.loading = false;
-            $rootScope.$emit('jack');
+            console.log("A")
+            $rootScope.$emit('jackEvent', data);
         });
 
         String.prototype.parseQuerystring = function () {
             var query = {};
             var a = this.split('&');
-            for (var i in a)
-            {
+            for (var i in a) {
                 var b = a[i].split('=');
                 query[decodeURIComponent(b[0])] = decodeURIComponent(b[1]);
             }
@@ -45,7 +43,7 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
         CardService.checkDeviceId(deviceId)
             .success(function (checkDeviceId) {
 
-                if(checkDeviceId.length == 0){
+                if (checkDeviceId.length == 0) {
                     CardService.createProfile(deviceId)
                         .success(function (signUpRes) {
                             $modal.open({
@@ -56,14 +54,13 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
                                     };
                                 }
                             })
-                            unbindHandler();
                         })
                 }
-
             })
 
-        var unbindHandler = $rootScope.$on('jack', function () {
-            $scope.cards = $rootScope.cards
+        $rootScope.$on('jackEvent', function (event, data) {
+            console.log("B")
+            $scope.cards = data
         });
 
         $scope.loadSavedWords = function () {
@@ -157,7 +154,7 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards', 'ui.bootstra
         CardService.checkDeviceId = function (deviceId) {
             return $http({
                 method: 'get',
-                url: 'https://dictionaryweb.herokuapp.com/checkDeviceId?deviceId='+deviceId,
+                url: 'https://dictionaryweb.herokuapp.com/checkDeviceId?deviceId=' + deviceId,
             });
         };
 
