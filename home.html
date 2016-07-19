@@ -106,17 +106,19 @@
               ng-click="loadSavedWords()">&#9733;</span>
     </header>
 
+
+    <div ng-show="loading" class="cssload-loader">
+        <div class="cssload-inner cssload-one"></div>
+        <div class="cssload-inner cssload-two"></div>
+        <div class="cssload-inner cssload-three"></div>
+    </div>
+
         <td-cards>
             <td-card ng-repeat="card in cards" on-destroy="cardDestroyed($index)" on-swipe-left="cardSwipedLeft($index)"
                      on-swipe-right="cardSwipedRight($index)" on-partial-swipe="cardPartialSwipe(amt)"
                      class="card-{{$index}}">
                 <div class="no-text">IGNORE</div>
                 <div class="image">
-                    <div ng-show="loading" class="cssload-loader">
-                        <div class="cssload-inner cssload-one"></div>
-                        <div class="cssload-inner cssload-two"></div>
-                        <div class="cssload-inner cssload-three"></div>
-                    </div>
                     <div ng-show="!loading" class="content">
                         <div class="word">{{card.word}}</div>
                         <div ng-if="card.definition != undefined" class="definition">
